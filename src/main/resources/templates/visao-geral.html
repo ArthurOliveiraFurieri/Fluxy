@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Visão Geral | Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/layout.css}"/>
+    <link rel="stylesheet" th:href="@{/css/components.css}"/>
+</head>
+<body>
+
+<div class="app-layout">
+
+    <!-- SIDEBAR -->
+    <th:block th:replace="~{fragments/sidebar :: sidebar}"></th:block>
+
+    <!-- MAIN -->
+    <div class="main-wrapper">
+
+        <!-- HEADER -->
+        <th:block th:replace="~{fragments/header :: header(
+            'Visão Geral',
+            'Panorama geral de engajamento e comportamento dos usuários'
+        )}"></th:block>
+
+        <!-- CONTEÚDO -->
+        <main class="main-content">
+
+            <!-- ── INSIGHTS ──────────────────────────────── -->
+            <section>
+                <div class="section-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2">
+                        <polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/>
+                    </svg>
+                    Insights Automáticos
+                    <span class="muted">• Atualizado há 2 minutos</span>
+                </div>
+
+                <div class="insights-grid">
+                    <div class="insight-card critical">
+                        <div><span class="badge red">⚠ CRÍTICO &nbsp;-12.3%</span></div>
+                        <h3>Queda crítica no engajamento de cursos</h3>
+                        <p>Taxa de engajamento em Cursos Online caiu 12,3% nos últimos 3 dias.
+                           Taxa de abandono subiu de 34% para 46%. Pico de rage clicks detectado
+                           na página de inscrição.</p>
+                        <a href="#">Ver heatmap →</a>
+                    </div>
+                    <div class="insight-card positive">
+                        <div><span class="badge green">✓ POSITIVO &nbsp;+23% retorno</span></div>
+                        <h3>Segmento MEI com alta retenção</h3>
+                        <p>Usuários MEI que acessam "Gestão Financeira" retornam 23% mais que
+                           a média do segmento. Padrão consistente nas últimas 2 semanas.</p>
+                        <a href="#">Explorar segmento →</a>
+                    </div>
+                    <div class="insight-card info">
+                        <div><span class="badge blue">ℹ INSIGHT &nbsp;+18% conversão</span></div>
+                        <h3>Padrão de horário de alto valor</h3>
+                        <p>Picos de acesso às 10h–11h e 15h–16h apresentam +18% de conversão.
+                           Oportunidade para notificações segmentadas e conteúdo programado.</p>
+                        <a href="#">Ver relatório →</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── KPIs ───────────────────────────────────── -->
+            <section>
+                <div class="section-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12,6 12,12 16,14"/>
+                    </svg>
+                    KPIs Principais
+                </div>
+
+                <div class="kpi-container">
+                    <div class="kpi-card">
+                        <div class="kpi-card__header">
+                            <span class="kpi-card__label">Taxa de Engajamento</span>
+                            <div class="kpi-card__icon" style="background:#eff6ff">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                    <circle cx="12" cy="12" r="3"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="kpi-card__value">68.4 <span class="unit">%</span></div>
+                        <div class="kpi-card__desc">Usuários que interagiram ativamente</div>
+                        <div class="kpi-card__trend up">↑ +8.2% <span class="vs">vs período anterior</span></div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-card__header">
+                            <span class="kpi-card__label">Score de Esforço (CES)</span>
+                            <div class="kpi-card__icon" style="background:#faf5ff">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <circle cx="12" cy="12" r="4"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="kpi-card__value">2.8 <span class="unit">pts</span></div>
+                        <div class="kpi-card__desc">Escala 1–5 · quanto menor, melhor</div>
+                        <div class="kpi-card__trend down">↓ -12.5% <span class="vs">vs período anterior</span></div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-card__header">
+                            <span class="kpi-card__label">Taxa de Retorno</span>
+                            <div class="kpi-card__icon" style="background:#f0fdf4">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2">
+                                    <polyline points="23,4 23,10 17,10"/>
+                                    <path d="M20.5 15A9 9 0 1 1 21 9.5"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="kpi-card__value">42.1 <span class="unit">%</span></div>
+                        <div class="kpi-card__desc">Usuários que retornaram em 30 dias</div>
+                        <div class="kpi-card__trend up">↑ +9.6% <span class="vs">vs período anterior</span></div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-card__header">
+                            <span class="kpi-card__label">Tempo Médio de Sessão</span>
+                            <div class="kpi-card__icon" style="background:#fffbeb">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12,6 12,12 16,14"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="kpi-card__value">4.3 <span class="unit">min</span></div>
+                        <div class="kpi-card__desc">Média por sessão no período</div>
+                        <div class="kpi-card__trend up">↑ +22.2% <span class="vs">vs período anterior</span></div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-card__header">
+                            <span class="kpi-card__label">Sessões Totais</span>
+                            <div class="kpi-card__icon" style="background:#f0f9ff">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="#0ea5e9" stroke-width="2">
+                                    <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+                                    <circle cx="9" cy="7" r="4"/>
+                                    <path d="M23 21v-2a4 4 0 00-3-3.87"/>
+                                    <path d="M16 3.13a4 4 0 010 7.75"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="kpi-card__value">142.5k</div>
+                        <div class="kpi-card__desc">Total de sessões no período</div>
+                        <div class="kpi-card__trend up">↑ +11.1% <span class="vs">vs período anterior</span></div>
+                    </div>
+                </div>
+
+                <div class="kpi-row-2">
+                    <div class="kpi-card">
+                        <div class="kpi-card__header">
+                            <span class="kpi-card__label">Taxa de Conversão</span>
+                            <div class="kpi-card__icon" style="background:#fdf4ff">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2">
+                                    <polyline points="22,7 13.5,15.5 8.5,10.5 2,17"/>
+                                    <polyline points="16,7 22,7 22,13"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="kpi-card__value">9.5 <span class="unit">%</span></div>
+                        <div class="kpi-card__desc">Cadastros / inscrições realizados</div>
+                        <div class="kpi-card__trend up">↑ +15.9% <span class="vs">vs período anterior</span></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── GRÁFICOS linha 1 ──────────────────────── -->
+            <div class="charts-row">
+                <div class="chart-card">
+                    <div class="chart-card__title">Evolução Temporal</div>
+                    <div class="chart-card__sub">Engajamento, Sessões e Taxa de Retorno</div>
+                    <div class="chart-card__area">
+                        <canvas id="chartEvolucao" height="160"></canvas>
+                    </div>
+                    <div class="chart-legend">
+                        <div class="chart-legend__item">
+                            <div class="chart-legend__dot" style="background:#3b82f6"></div>Engajamento %
+                        </div>
+                        <div class="chart-legend__item">
+                            <div class="chart-legend__dot" style="background:#10b981"></div>Retorno %
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-card__title">Fontes de Tráfego</div>
+                    <div class="chart-card__sub">Distribuição de sessões por origem</div>
+                    <div class="donut-wrap">
+                        <canvas id="chartDonut" width="160" height="160"></canvas>
+                        <div class="donut-legend" id="donutLegend"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── GRÁFICOS linha 2 ──────────────────────── -->
+            <div class="charts-row">
+                <div class="chart-card">
+                    <div class="chart-card__title">Volume de Sessões</div>
+                    <div class="chart-card__sub">Sessões diárias por período selecionado</div>
+                    <div class="chart-card__area">
+                        <canvas id="chartVolume" height="160"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-card__title">Funil Resumido</div>
+                    <div class="chart-card__sub">Conversão por etapa</div>
+                    <div class="funil-rows" id="funilRows"></div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script th:src="@{/js/layout.js}"></script>
+<script th:src="@{/js/visao-geral.js}"></script>
+</body>
+</html>

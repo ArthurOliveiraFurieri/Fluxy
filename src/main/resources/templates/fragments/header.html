@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<body>
+
+<!--/* ─────────────────────────────────────────
+    FRAGMENTO: header
+    Parâmetros:
+      - title    : título da página
+      - subtitle : subtítulo da página
+    Uso: th:replace="~{fragments/header :: header(${pageTitle}, ${pageSubtitle})}"
+    ───────────────────────────────────────── */-->
+<header th:fragment="header(title, subtitle)" class="app-header">
+
+    <!-- Título da página -->
+    <div class="header-title">
+        <h1 th:text="${title} ?: 'Dashboard'">Dashboard</h1>
+        <p th:text="${subtitle} ?: ''" th:if="${subtitle != null}">Subtítulo</p>
+    </div>
+
+    <!-- Filtros e ações -->
+    <div class="header-actions">
+
+        <!-- Filtro: período -->
+        <button class="filter-btn" id="filterPeriodo">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                <rect x="3" y="4" width="18" height="2" rx="1"/>
+                <rect x="7" y="11" width="10" height="2" rx="1"/>
+                <rect x="10" y="18" width="4"  height="2" rx="1"/>
+            </svg>
+            <span>Últimos 07 dias</span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke-width="2">
+                <polyline points="6,9 12,15 18,9"/>
+            </svg>
+        </button>
+
+        <!-- Filtro: usuários -->
+        <button class="filter-btn" id="filterUsuarios">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+            </svg>
+            <span>Todos os usuários</span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke-width="2">
+                <polyline points="6,9 12,15 18,9"/>
+            </svg>
+        </button>
+
+        <!-- Filtro: fontes -->
+        <button class="filter-btn" id="filterFontes">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="2" y1="12" x2="22" y2="12"/>
+                <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10A15.3 15.3 0 018 12a15.3 15.3 0 014-10z"/>
+            </svg>
+            <span>Todas as fontes</span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke-width="2">
+                <polyline points="6,9 12,15 18,9"/>
+            </svg>
+        </button>
+
+        <!-- Filtro: tipos -->
+        <button class="filter-btn" id="filterTipos">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                <polyline points="14,2 14,8 20,8"/>
+            </svg>
+            <span>Todos os tipos</span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke-width="2">
+                <polyline points="6,9 12,15 18,9"/>
+            </svg>
+        </button>
+
+        <!-- Botão atualizar -->
+        <button class="icon-btn" id="btnRefresh" title="Atualizar dados">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                <polyline points="23,4 23,10 17,10"/>
+                <path d="M20.5 15A9 9 0 1 1 21 9.5"/>
+            </svg>
+        </button>
+
+        <!-- Botão exportar -->
+        <button class="icon-btn" id="btnExport" title="Exportar dados">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                <polyline points="7,10 12,15 17,10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+        </button>
+
+        <!-- Notificações -->
+        <button class="icon-btn icon-btn--notif" id="btnNotif" title="Notificações">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                <path d="M13.73 21a2 2 0 01-3.46 0"/>
+            </svg>
+            <span class="notif-badge" th:text="${notifCount} ?: 2">2</span>
+        </button>
+
+    </div>
+</header>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<body>
+
+<!--/* ─────────────────────────────────────────
+    FRAGMENTO: sidebar
+    Uso: th:replace="~{fragments/sidebar :: sidebar}"
+    ───────────────────────────────────────── */-->
+<aside th:fragment="sidebar" class="sidebar">
+
+    <!-- Logo -->
+    <a th:href="@{/}" class="sidebar-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5">
+            <polyline points="2,12 6,6 10,14 14,8 18,16 22,10"/>
+        </svg>
+    </a>
+
+    <!-- Navegação principal -->
+    <nav class="sidebar-nav">
+
+        <!-- Visão Geral -->
+        <a th:href="@{/}"
+           th:classappend="${activePage == 'visao-geral'} ? 'active' : ''"
+           class="sidebar-item"
+           title="Visão Geral">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+                <rect x="3" y="3" width="7" height="7" rx="1"/>
+                <rect x="14" y="3" width="7" height="7" rx="1"/>
+                <rect x="3" y="14" width="7" height="7" rx="1"/>
+                <rect x="14" y="14" width="7" height="7" rx="1"/>
+            </svg>
+        </a>
+
+        <!-- Usuários -->
+        <a th:href="@{/usuarios}"
+           th:classappend="${activePage == 'usuarios'} ? 'active' : ''"
+           class="sidebar-item"
+           title="Usuários">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+            </svg>
+        </a>
+
+        <!-- Relatórios -->
+        <a th:href="@{/relatorios}"
+           th:classappend="${activePage == 'relatorios'} ? 'active' : ''"
+           class="sidebar-item"
+           title="Relatórios">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+                <line x1="18" y1="20" x2="18" y2="10"/>
+                <line x1="12" y1="20" x2="12" y2="4"/>
+                <line x1="6"  y1="20" x2="6"  y2="14"/>
+            </svg>
+        </a>
+
+        <!-- Engajamento -->
+        <a th:href="@{/engajamento}"
+           th:classappend="${activePage == 'engajamento'} ? 'active' : ''"
+           class="sidebar-item"
+           title="Engajamento">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+                <path d="M12 2C8 7 4 9 4 13a8 8 0 0016 0c0-4-4-6-8-11z"/>
+            </svg>
+        </a>
+
+        <!-- Mensagens -->
+        <a th:href="@{/mensagens}"
+           th:classappend="${activePage == 'mensagens'} ? 'active' : ''"
+           class="sidebar-item"
+           title="Mensagens">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+                <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+            </svg>
+        </a>
+
+        <!-- Configurações -->
+        <a th:href="@{/configuracoes}"
+           th:classappend="${activePage == 'configuracoes'} ? 'active' : ''"
+           class="sidebar-item"
+           title="Configurações">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+                <line x1="4"  y1="6"  x2="20" y2="6"/>
+                <line x1="8"  y1="12" x2="20" y2="12"/>
+                <line x1="12" y1="18" x2="20" y2="18"/>
+            </svg>
+        </a>
+
+    </nav>
+
+    <!-- Botão expandir (preparado para JS) -->
+    <button class="sidebar-expand" id="sidebarToggle" title="Expandir menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+            <polyline points="9,18 15,12 9,6"/>
+        </svg>
+    </button>
+
+</aside>
+
+</body>
+</html>

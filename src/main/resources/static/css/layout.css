@@ -1,0 +1,221 @@
+/* ═══════════════════════════════════════════════════════
+   layout.css — estrutura base (sidebar + header + main)
+   ═══════════════════════════════════════════════════════ */
+
+/* ── Reset básico ─────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #F0F2F6; color: #111827; }
+a    { text-decoration: none; color: inherit; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+svg  { display: block; }
+
+/* ── Variáveis de cor ─────────────────────────────────── */
+:root {
+    --sidebar-bg:       #0D1628;
+    --sidebar-width:    52px;
+    --sidebar-item-active-bg: #1e3a5f;
+    --sidebar-item-hover-bg:  #1e2e45;
+    --sidebar-icon:     #8ba3c0;
+    --sidebar-icon-active: #60a5fa;
+
+    --header-bg:        #ffffff;
+    --header-border:    #e5e7eb;
+    --header-height:    56px;
+
+    --page-bg:          #F0F2F6;
+    --page-padding:     24px;
+
+    --text-primary:     #111827;
+    --text-secondary:   #6b7280;
+    --text-muted:       #9ca3af;
+
+    --border:           #e5e7eb;
+    --radius-sm:        6px;
+    --radius-md:        8px;
+    --radius-lg:        10px;
+    --radius-xl:        12px;
+}
+
+/* ── App layout ───────────────────────────────────────── */
+.app-layout {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* ── SIDEBAR ──────────────────────────────────────────── */
+.sidebar {
+    width: var(--sidebar-width);
+    background: var(--sidebar-bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px 0;
+    flex-shrink: 0;
+    overflow: hidden;
+    transition: width .25s ease;
+    z-index: 100;
+}
+
+/* Logo */
+.sidebar-logo {
+    width: 32px;
+    height: 32px;
+    background: #2563EB;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    flex-shrink: 0;
+}
+.sidebar-logo svg {
+    width: 18px;
+    height: 18px;
+    stroke: #fff;
+}
+
+/* Nav */
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    flex: 1;
+}
+
+/* Item de navegação */
+.sidebar-item {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .15s;
+    flex-shrink: 0;
+}
+.sidebar-item svg {
+    width: 18px;
+    height: 18px;
+    stroke: var(--sidebar-icon);
+}
+.sidebar-item:hover       { background: var(--sidebar-item-hover-bg); }
+.sidebar-item.active      { background: var(--sidebar-item-active-bg); }
+.sidebar-item.active svg  { stroke: var(--sidebar-icon-active); }
+
+/* Botão expandir */
+.sidebar-expand {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #1e2e45;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.sidebar-expand svg {
+    width: 14px;
+    height: 14px;
+    stroke: var(--sidebar-icon);
+    transition: transform .25s;
+}
+.sidebar.expanded .sidebar-expand svg { transform: rotate(180deg); }
+
+/* ── MAIN WRAPPER ─────────────────────────────────────── */
+.main-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-width: 0;
+}
+
+/* ── HEADER ───────────────────────────────────────────── */
+.app-header {
+    height: var(--header-height);
+    background: var(--header-bg);
+    border-bottom: 1px solid var(--header-border);
+    padding: 0 var(--page-padding);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+    z-index: 50;
+}
+
+.header-title { flex: 1; min-width: 0; }
+.header-title h1 { font-size: 15px; font-weight: 600; color: var(--text-primary); }
+.header-title p  { font-size: 12px; color: var(--text-secondary); margin-top: 1px; }
+
+/* Ações do header */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+/* Botão de filtro */
+.filter-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 10px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: #fff;
+    font-size: 12px;
+    color: var(--text-primary);
+    transition: border-color .15s, background .15s;
+    white-space: nowrap;
+}
+.filter-btn svg       { width: 13px; height: 13px; stroke: var(--text-secondary); flex-shrink: 0; }
+.filter-btn .chevron  { width: 12px; height: 12px; }
+.filter-btn:hover     { border-color: #9ca3af; background: #f9fafb; }
+
+/* Botão ícone */
+.icon-btn {
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color .15s, background .15s;
+    position: relative;
+}
+.icon-btn svg    { width: 15px; height: 15px; stroke: var(--text-secondary); }
+.icon-btn:hover  { border-color: #9ca3af; background: #f9fafb; }
+
+/* Badge de notificação */
+.icon-btn--notif .notif-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 4px;
+    background: #ef4444;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    border-radius: 8px;
+    border: 1.5px solid #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+/* ── MAIN CONTENT ─────────────────────────────────────── */
+.main-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--page-padding);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
