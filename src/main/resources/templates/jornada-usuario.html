@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Jornada do Usuário | Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/layout.css}"/>
+    <link rel="stylesheet" th:href="@{/css/components.css}"/>
+    <link rel="stylesheet" th:href="@{/css/jornada-usuario.css}"/>
+</head>
+<body>
+
+<div class="app-layout">
+
+    <!-- SIDEBAR -->
+    <th:block th:replace="~{fragments/sidebar :: sidebar}"></th:block>
+
+    <!-- MAIN -->
+    <div class="main-wrapper">
+
+        <!-- HEADER -->
+        <th:block th:replace="~{fragments/header :: header(
+            'Jornada do Usuário',
+            'Análise de funil, fluxo e eventos críticos na jornada'
+        )}"></th:block>
+
+        <!-- CONTEÚDO -->
+        <main class="main-content">
+
+            <!-- ── ROW 1: Funil de Conversão + Eventos Críticos ── -->
+            <div class="top-row">
+
+                <!-- FUNIL DE CONVERSÃO -->
+                <div class="card">
+                    <div class="funnel-card__header">
+                        <div>
+                            <div class="chart-card__title">Funil de Conversão</div>
+                            <div class="chart-card__sub">Total de 142.500 sessões • Abril 2026</div>
+                        </div>
+                        <span class="funnel-badge">Conversão final: 6.6%</span>
+                    </div>
+
+                    <div class="funnel-steps">
+
+                        <div class="funnel-step">
+                            <div class="funnel-step__row">
+                                <div class="funnel-step__num" style="background:#3b82f6;">1</div>
+                                <div class="funnel-step__bar-wrap">
+                                    <div class="funnel-step__bar" style="background:#3b82f6; width:100%;">
+                                        <span class="bar-label">Entrada no Site</span>
+                                        <span class="bar-pct">100%</span>
+                                    </div>
+                                </div>
+                                <div class="funnel-step__users">142.5k<small>usuários</small></div>
+                            </div>
+                            <div class="funnel-step__drop">↓ -31% saíram (44.1k usuários)</div>
+                        </div>
+
+                        <div class="funnel-step">
+                            <div class="funnel-step__row">
+                                <div class="funnel-step__num" style="background:#60a5fa;">2</div>
+                                <div class="funnel-step__bar-wrap">
+                                    <div class="funnel-step__bar" style="background:#60a5fa; width:69%;">
+                                        <span class="bar-label">Exploração de Conteúdo</span>
+                                        <span class="bar-pct">69%</span>
+                                    </div>
+                                </div>
+                                <div class="funnel-step__users">98.4k<small>usuários</small></div>
+                            </div>
+                            <div class="funnel-step__drop">↓ -47% saíram (46.3k usuários)</div>
+                        </div>
+
+                        <div class="funnel-step">
+                            <div class="funnel-step__row">
+                                <div class="funnel-step__num" style="background:#AE8DF9;">3</div>
+                                <div class="funnel-step__bar-wrap">
+                                    <div class="funnel-step__bar" style="background:#AE8DF9; width:53%;">
+                                        <span class="bar-label">Engajamento Profundo</span>
+                                        <span class="bar-pct">53%</span>
+                                    </div>
+                                </div>
+                                <div class="funnel-step__users">52.1k<small>usuários</small></div>
+                            </div>
+                            <div class="funnel-step__drop">↓ -56% saíram (29.3k usuários)</div>
+                        </div>
+
+                        <div class="funnel-step">
+                            <div class="funnel-step__row">
+                                <div class="funnel-step__num" style="background:#F9C56D;">4</div>
+                                <div class="funnel-step__bar-wrap">
+                                    <div class="funnel-step__bar" style="background:#F9C56D; width:44%;">
+                                        <span class="bar-label">Intenção de Conversão</span>
+                                        <span class="bar-pct">44%</span>
+                                    </div>
+                                </div>
+                                <div class="funnel-step__users">22.8k<small>usuários</small></div>
+                            </div>
+                            <div class="funnel-step__drop">↓ -59% saíram (13.3k usuários)</div>
+                        </div>
+
+                        <div class="funnel-step">
+                            <div class="funnel-step__row">
+                                <div class="funnel-step__num" style="background:#10b981;">5</div>
+                                <div class="funnel-step__bar-wrap">
+                                    <div class="funnel-step__bar" style="background:#10b981; width:41%;">
+                                        <span class="bar-label">Conversão / Cadastro</span>
+                                        <span class="bar-pct">41%</span>
+                                    </div>
+                                </div>
+                                <div class="funnel-step__users">9.4k<small>usuários</small></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- EVENTOS CRÍTICOS -->
+                <div class="card">
+                    <div class="chart-card__title">Eventos Críticos</div>
+
+                    <div class="events-list">
+
+                        <div class="event-item ev-red">
+                            <div class="event-item__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                                </svg>
+                            </div>
+                            <div class="event-item__body">
+                                <div class="event-item__name">Cadastro Avançado</div>
+                                <div class="event-item__desc">Alto abandono pós formulário</div>
+                                <div class="event-item__count">4.820 usuários afetados</div>
+                            </div>
+                        </div>
+
+                        <div class="event-item ev-yellow">
+                            <div class="event-item__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                    <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+                                    <line x1="12" y1="9" x2="12" y2="13"/>
+                                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                                </svg>
+                            </div>
+                            <div class="event-item__body">
+                                <div class="event-item__name">Cursos Online</div>
+                                <div class="event-item__desc">Queda de conclusão (-12%)</div>
+                                <div class="event-item__count">3.140 usuários afetados</div>
+                            </div>
+                        </div>
+
+                        <div class="event-item ev-blue">
+                            <div class="event-item__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                                </svg>
+                            </div>
+                            <div class="event-item__body">
+                                <div class="event-item__name">Ferramentas</div>
+                                <div class="event-item__desc">Pico de engajamento: 10h–11h</div>
+                                <div class="event-item__count">8.920 usuários afetados</div>
+                            </div>
+                        </div>
+
+                        <div class="event-item ev-green">
+                            <div class="event-item__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                            </div>
+                            <div class="event-item__body">
+                                <div class="event-item__name">Consultorias MEI</div>
+                                <div class="event-item__desc">Maior retenção do funil</div>
+                                <div class="event-item__count">2.310 usuários afetados</div>
+                            </div>
+                        </div>
+
+                        <div class="event-item ev-orange">
+                            <div class="event-item__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="12" y1="8" x2="12" y2="12"/>
+                                    <line x1="12" y1="16" x2="12.01" y2="16"/>
+                                </svg>
+                            </div>
+                            <div class="event-item__body">
+                                <div class="event-item__name">Pesquisa Interna</div>
+                                <div class="event-item__desc">Rage clicks detectados</div>
+                                <div class="event-item__count">4.820 usuários afetados</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ── ROW 2: Taxa de Abandono + Micro-feedback ── -->
+            <div class="bottom-row">
+
+                <!-- TAXA DE ABANDONO POR PÁGINA -->
+                <div class="card">
+                    <div class="chart-card__title">Taxa de Abandono por Página</div>
+                    <div class="chart-card__sub">Páginas com maior perda de usuários no fluxo</div>
+
+                    <div class="abandon-list">
+                        <div class="abandon-row">
+                            <div class="abandon-row__header">
+                                <span class="abandon-row__label">Cadastro Avançado</span>
+                                <span class="abandon-row__pct">82%</span>
+                            </div>
+                            <div class="abandon-row__track">
+                                <div class="abandon-row__fill" style="width:82%; background:#ef4444;"></div>
+                            </div>
+                        </div>
+                        <div class="abandon-row">
+                            <div class="abandon-row__header">
+                                <span class="abandon-row__label">Busca Interna</span>
+                                <span class="abandon-row__pct">68%</span>
+                            </div>
+                            <div class="abandon-row__track">
+                                <div class="abandon-row__fill" style="width:68%; background:#f97316;"></div>
+                            </div>
+                        </div>
+                        <div class="abandon-row">
+                            <div class="abandon-row__header">
+                                <span class="abandon-row__label">Cursos Online</span>
+                                <span class="abandon-row__pct">62%</span>
+                            </div>
+                            <div class="abandon-row__track">
+                                <div class="abandon-row__fill" style="width:62%; background:#fb923c;"></div>
+                            </div>
+                        </div>
+                        <div class="abandon-row">
+                            <div class="abandon-row__header">
+                                <span class="abandon-row__label">Portal de Serviços</span>
+                                <span class="abandon-row__pct">52%</span>
+                            </div>
+                            <div class="abandon-row__track">
+                                <div class="abandon-row__fill" style="width:52%; background:#fbbf24;"></div>
+                            </div>
+                        </div>
+                        <div class="abandon-row">
+                            <div class="abandon-row__header">
+                                <span class="abandon-row__label">Artigos / Blog</span>
+                                <span class="abandon-row__pct">43%</span>
+                            </div>
+                            <div class="abandon-row__track">
+                                <div class="abandon-row__fill" style="width:43%; background:#fcd34d;"></div>
+                            </div>
+                        </div>
+                        <div class="abandon-row">
+                            <div class="abandon-row__header">
+                                <span class="abandon-row__label">Ferramentas</span>
+                                <span class="abandon-row__pct">18%</span>
+                            </div>
+                            <div class="abandon-row__track">
+                                <div class="abandon-row__fill" style="width:18%; background:#10b981;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="abandon-axis">
+                        <span>0%</span><span>20%</span><span>40%</span><span>60%</span><span>80%</span>
+                    </div>
+                </div>
+
+                <!-- MICRO-FEEDBACK POR ETAPA -->
+                <div class="card">
+                    <div class="chart-card__title">Micro-feedback por Etapa</div>
+                    <div class="chart-card__sub">Sentimento implícito capturado ao longo da jornada</div>
+
+                    <div class="mf-list">
+                        <div class="mf-row">
+                            <div class="mf-row__header"><span class="mf-row__label">Entrada</span></div>
+                            <div class="mf-row__track">
+                                <div class="mf-row__seg" style="width:82%; background:#10b981;">82%</div>
+                                <div class="mf-row__seg" style="width:12%; background:#ef4444;">12%</div>
+                                <div class="mf-row__seg" style="width:6%;  background:#f59e0b;">6%</div>
+                            </div>
+                        </div>
+                        <div class="mf-row">
+                            <div class="mf-row__header"><span class="mf-row__label">Exploração</span></div>
+                            <div class="mf-row__track">
+                                <div class="mf-row__seg" style="width:71%; background:#10b981;">71%</div>
+                                <div class="mf-row__seg" style="width:18%; background:#ef4444;">18%</div>
+                                <div class="mf-row__seg" style="width:11%; background:#f59e0b;">11%</div>
+                            </div>
+                        </div>
+                        <div class="mf-row">
+                            <div class="mf-row__header"><span class="mf-row__label">Engajamento</span></div>
+                            <div class="mf-row__track">
+                                <div class="mf-row__seg" style="width:64%; background:#10b981;">64%</div>
+                                <div class="mf-row__seg" style="width:21%; background:#ef4444;">21%</div>
+                                <div class="mf-row__seg" style="width:15%; background:#f59e0b;">15%</div>
+                            </div>
+                        </div>
+                        <div class="mf-row">
+                            <div class="mf-row__header"><span class="mf-row__label">Conversão</span></div>
+                            <div class="mf-row__track">
+                                <div class="mf-row__seg" style="width:53%; background:#10b981;">53%</div>
+                                <div class="mf-row__seg" style="width:24%; background:#ef4444;">24%</div>
+                                <div class="mf-row__seg" style="width:23%; background:#f59e0b;">23%</div>
+                            </div>
+                        </div>
+                        <div class="mf-row">
+                            <div class="mf-row__header"><span class="mf-row__label">Pós-Cadastro</span></div>
+                            <div class="mf-row__track">
+                                <div class="mf-row__seg" style="width:68%; background:#10b981;">68%</div>
+                                <div class="mf-row__seg" style="width:19%; background:#ef4444;">19%</div>
+                                <div class="mf-row__seg" style="width:13%; background:#f59e0b;">13%</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mf-legend">
+                        <div class="mf-legend__item">
+                            <div class="mf-legend__dot" style="background:#10b981;"></div>Positivo
+                        </div>
+                        <div class="mf-legend__item">
+                            <div class="mf-legend__dot" style="background:#ef4444;"></div>Negativo
+                        </div>
+                        <div class="mf-legend__item">
+                            <div class="mf-legend__dot" style="background:#f59e0b;"></div>Neutro
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ── INFO BOX ── -->
+            <div class="info-box">
+                <div class="info-box__icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="12" y1="16" x2="12" y2="12"/>
+                        <line x1="12" y1="8"  x2="12.01" y2="8"/>
+                    </svg>
+                </div>
+                <div>
+                    <div class="info-box__title">Arquitetura da informação - Lógica da Jornada</div>
+                    <div class="info-box__text">
+                        O funil revela onde os usuários saem. Os eventos críticos explicam o que causou o abandono.
+                        O micro-feedback mostra como o usuário se sentiu em cada etapa. O ponto de maior atenção é a
+                        transição Engajamento → Intenção de Conversão (perda de 56%). Combina com o alto abandono em
+                        Cadastro Avançado — evidência de um gargalo de UX corrigível.
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+</div>
+
+<script th:src="@{/js/layout.js}"></script>
+</body>
+</html>

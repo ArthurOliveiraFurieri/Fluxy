@@ -31,6 +31,18 @@
             </svg>
         </a>
 
+        <!-- Jornada do Usuário -->
+        <a th:href="@{/jornada}"
+           th:classappend="${activePage == 'jornada'} ? 'active' : ''"
+           class="sidebar-item"
+           title="Jornada do Usuário">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="8,12 12,8 16,12"/>
+                <line x1="12" y1="8" x2="12" y2="16"/>
+            </svg>
+        </a>
+
         <!-- Usuários -->
         <a th:href="@{/usuarios}"
            th:classappend="${activePage == 'usuarios'} ? 'active' : ''"
@@ -88,7 +100,7 @@
 
     </nav>
 
-    <!-- Botão expandir (preparado para JS) -->
+    <!-- Botão expandir -->
     <button class="sidebar-expand" id="sidebarToggle" title="Expandir menu">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
             <polyline points="9,18 15,12 9,6"/>

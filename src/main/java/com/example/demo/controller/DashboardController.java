@@ -14,4 +14,11 @@ public class DashboardController {
         model.addAttribute("activePage",   "visao-geral");
         return "visao-geral";
     }
+
+    // ── novo método ──
+    @GetMapping("/jornada")
+    public String jornadaUsuario(Model model) {
+        model.addAttribute("activePage", "jornada");
+        return "jornada-usuario";
+    }
 }
