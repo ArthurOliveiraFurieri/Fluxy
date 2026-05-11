@@ -170,12 +170,12 @@
             </section>
 
             <!-- ── GRÁFICOS linha 1 ──────────────────────── -->
-            <div class="charts-row">
-                <div class="chart-card">
+            <div class="charts-row1">
+                <div class="chart-card" style="position: relative; height: 400px;">
                     <div class="chart-card__title">Evolução Temporal</div>
                     <div class="chart-card__sub">Engajamento, Sessões e Taxa de Retorno</div>
-                    <div class="chart-card__area">
-                        <canvas id="chartEvolucao" height="160"></canvas>
+                    <div class="chart-card__area" style="position: relative; height: 300px;">
+                        <canvas id="chartEvolucao"></canvas>
                     </div>
                     <div class="chart-legend">
                         <div class="chart-legend__item">
@@ -186,29 +186,29 @@
                         </div>
                     </div>
                 </div>
-                <div class="chart-card">
+                <div class="chart-card" style="display: flex;position: relative;">
                     <div class="chart-card__title">Fontes de Tráfego</div>
                     <div class="chart-card__sub">Distribuição de sessões por origem</div>
-                    <div class="donut-wrap">
-                        <canvas id="chartDonut" width="160" height="160"></canvas>
+                    <div class="donut-wrap" style="display: flex;">
+                        <canvas id="chartDonut" width="300px" height="360px"></canvas>
                         <div class="donut-legend" id="donutLegend"></div>
                     </div>
                 </div>
             </div>
 
             <!-- ── GRÁFICOS linha 2 ──────────────────────── -->
-            <div class="charts-row">
+            <div class="charts-row2">
                 <div class="chart-card">
                     <div class="chart-card__title">Volume de Sessões</div>
                     <div class="chart-card__sub">Sessões diárias por período selecionado</div>
                     <div class="chart-card__area">
-                        <canvas id="chartVolume" height="160"></canvas>
+                        <canvas id="chartVolume" style="position: relative; height: 320px;"></canvas>
                     </div>
                 </div>
                 <div class="chart-card">
                     <div class="chart-card__title">Funil Resumido</div>
                     <div class="chart-card__sub">Conversão por etapa</div>
-                    <div class="funil-rows" id="funilRows"></div>
+                    <div class="funil-rows" id="funilRows" ></div>
                 </div>
             </div>
 

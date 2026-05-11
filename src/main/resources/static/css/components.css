@@ -190,11 +190,18 @@
 .kpi-card__trend .vs   { font-size: 11px; color: var(--text-muted); font-weight: 400; }
 
 /* ── Chart cards ──────────────────────────────────────── */
-.charts-row {
+.charts-row1 {
     display: grid;
-    grid-template-columns: 1fr 320px;
+    grid-template-columns: 1.5fr 1fr;
     gap: 16px;
 }
+
+.charts-row2 {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 16px;
+}
+
 .chart-card {
     background: #fff;
     border: 1px solid var(--border);
@@ -204,6 +211,7 @@
 .chart-card__title { font-size: 13px; font-weight: 600; color: var(--text-primary); }
 .chart-card__sub   { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
 .chart-card__area  { margin-top: 14px; }
+
 .chart-legend {
     display: flex;
     align-items: center;

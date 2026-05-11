@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     /* ── Opções comuns ──────────────────────────────────── */
     const commonOptions = {
+        maintainAspectRatio: false,
         plugins: {
             legend: { display: false },
             tooltip: { mode: 'index', intersect: false },
