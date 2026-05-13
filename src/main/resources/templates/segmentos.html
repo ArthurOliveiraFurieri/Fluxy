@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fluxy - Segmentação</title>
+    
+    <link rel="stylesheet" th:href="@{/css/layout.css}">
+    <link rel="stylesheet" th:href="@{/css/components.css}">
+    <link rel="stylesheet" th:href="@{/css/segmentos.css}">
+</head>
+<body class="app-layout">
+
+    <aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
+
+    <div class="main-wrapper">
+        
+        <header th:replace="~{fragments/header :: header('Filtros e Segmentações', 'Configure segmentos avançados e compare comportamentos')}"></header>
+
+        <main class="main-content">
+            <div class="content-body">
+                
+                <section class="card stats-preview">
+                    <div class="card-header">
+                        <h3><i class="icon-analytics"></i> Prévia com Filtros Ativos</h3>
+                        <button class="btn-text">Redefinir filtros</button>
+                    </div>
+                    <div class="stats-container">
+                        <div class="stat-card">
+                            <span class="stat-label">ENGAJAMENTO</span>
+                            <strong class="stat-value">68.4%</strong>
+                            <span class="stat-status">Na média</span>
+                        </div>
+
+                        <div class="stat-card">
+                            <span class="stat-label">RETORNO</span>
+                            <strong class="stat-value">42.1%</strong>
+                            <span class="stat-status">Na média</span>
+                        </div>
+
+                        <div class="stat-card">
+                            <span class="stat-label">SESSÕES</span>
+                            <strong class="stat-value">142.5k</strong>
+                            <span class="stat-status">Na média</span>
+                        </div>
+
+                        <div class="stat-card">
+                            <span class="stat-label">CES SCORE</span>
+                            <strong class="stat-value">2.8</strong>
+                            <span class="stat-status">Na média</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="card segment-builder">
+                    <div class="card-header-row">
+                        <h3><i class="icon-filter"></i> Construtor de Segmento</h3>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label>PERÍODO DE ANÁLISE</label>
+                        <div class="pill-group">
+                            <button class="pill">Últimos 7 dias</button>
+                            <button class="pill active">Últimos 30 dias</button>
+                            <button class="pill">Últimos 90 dias</button>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <label>TIPO DE USUÁRIO</label>
+                        <div class="pill-group">
+                            <button class="pill active">Todos os usuários</button>
+                            <button class="pill">MEI</button>
+                            <button class="pill">Empreendedores</button>
+                            <button class="pill">Estudantes</button>
+                            <button class="pill">Empresários Consolidados</button>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <label>ORIGEM DE TRÁFEGO</label>
+                        <div class="pill-group">
+                            <button class="pill active">Todas as fontes</button>
+                            <button class="pill">Orgânico</button>
+                            <button class="pill">Direto</button>
+                            <button class="pill">Social</button>
+                            <button class="pill">E-mail</button>
+                            <button class="pill">Pago</button>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <label>TIPO DE CONTEÚDO</label>
+                        <div class="pill-group">
+                            <button class="pill active">Todos os tipos</button>
+                            <button class="pill">Cursos Online</button>
+                            <button class="pill">Ferramentas</button>
+                            <button class="pill">Artigos/Blog</button>
+                            <button class="pill">Eventos</button>
+                            <button class="pill">Consultorias</button>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="predefined-section">
+                    <div class="section-title">
+                        <span class="icon-box"></span> 
+                        <h3>Segmentos Pré-definidos</h3>
+                        <span class="subtitle">Aplique configurações recomendadas para análises específicas</span>
+                    </div>
+
+                    <div class="predefined-grid">
+                        <div class="segment-mini-card">
+                            <div class="card-top">
+                                <h4>Usuários de Alto Valor</h4>
+                                <span class="tag-badge badge-blue">Recomendado</span>
+                            </div>
+                            <p>MEI e Consolidados via busca orgânica, foco em ferramentas</p>
+                            <div class="tag-group">
+                                <span>mei</span><span>organico</span><span>ferramentas</span>
+                            </div>
+                        </div>
+
+                        <div class="segment-mini-card">
+                            <div class="card-top">
+                                <h4>Segmento em Risco</h4>
+                                <span class="tag-badge badge-red">Atenção</span>
+                            </div>
+                            <p>Estudantes via social — menor retenção e maior abandono</p>
+                            <div class="tag-group">
+                                <span>7d</span><span>estudantes</span><span>social</span><span>cursos</span>
+                            </div>
+                        </div>
+
+                        <div class="segment-mini-card">
+                            <div class="card-top">
+                                <h4>Campanha de E-mail</h4>
+                            </div>
+                            <p>Usuários vindos de e-mail nos últimos 7 dias</p>
+                            <div class="tag-group">
+                                <span>7d</span><span>email</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="card table-section">
+                    <div class="card-header-row">
+                        <h3><i class="icon-chart"></i> Comparativo de Segmentos</h3>
+                    </div>
+                    
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>SEGMENTO</th>
+                                <th>PARTICIPAÇÃO</th>
+                                <th>ENGAJAMENTO</th>
+                                <th>RETENÇÃO</th>
+                                <th>OPORTUNIDADE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="dot" style="background: #3b82f6;"></span> Empreendedores</td>
+                                <td>
+                                    <div class="progress-wrapper">
+                                        <div class="progress-bar"><div class="progress-fill" style="width: 38%; background: #3b82f6;"></div></div>
+                                        <span>38%</span>
+                                    </div>
+                                </td>
+                                <td class="val-success">71%</td>
+                                <td class="val-success">45%</td>
+                                <td><span class="badge-status status-warning">Desenvolver</span></td>
+                            </tr>
+                            <tr class="row-alt">
+                                <td><span class="dot" style="background: #10b981;"></span> MEI</td>
+                                <td>
+                                    <div class="progress-wrapper">
+                                        <div class="progress-bar"><div class="progress-fill" style="width: 27%; background: #10b981;"></div></div>
+                                        <span>27%</span>
+                                    </div>
+                                </td>
+                                <td class="val-success">74%</td>
+                                <td class="val-success">52%</td>
+                                <td><span class="badge-status status-warning">Desenvolver</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="dot" style="background: #8b5cf6;"></span> Estudantes</td>
+                                <td>
+                                    <div class="progress-wrapper">
+                                        <div class="progress-bar"><div class="progress-fill" style="width: 18%; background: #8b5cf6;"></div></div>
+                                        <span>18%</span>
+                                    </div>
+                                </td>
+                                <td class="val-warning">62%</td>
+                                <td class="val-danger">33%</td>
+                                <td><span class="badge-status status-danger">Precisa atenção</span></td>
+                            </tr>
+                            <tr class="row-alt">
+                                <td><span class="dot" style="background: #f59e0b;"></span> Empresários Consolidados</td>
+                                <td>
+                                    <div class="progress-wrapper">
+                                        <div class="progress-bar"><div class="progress-fill" style="width: 12%; background: #f59e0b;"></div></div>
+                                        <span>12%</span>
+                                    </div>
+                                </td>
+                                <td class="val-success">79%</td>
+                                <td class="val-success">58%</td>
+                                <td><span class="badge-status status-success">Alto potencial</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>

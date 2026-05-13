@@ -1,0 +1,352 @@
+/* Tabela de Comparativo */
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.comparison-table th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    color: #9ca3af;
+    padding: 12px 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.comparison-table td {
+    padding: 14px 16px;
+    font-size: 13px;
+    color: #374151;
+    vertical-align: middle;
+}
+
+/* Linhas alternadas (zebradas suave) */
+.row-alt {
+    background-color: #f9fafb;
+}
+
+/* Dot de cor ao lado do nome */
+.dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+/* Barra de Progresso */
+.progress-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 140px;
+}
+
+.progress-bar {
+    flex: 1;
+    height: 6px;
+    background: #e5e7eb;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 10px;
+}
+
+/* Cores de Engajamento/Retenção */
+.val-success { color: #10b981; font-weight: 600; }
+.val-warning { color: #f59e0b; font-weight: 600; }
+.val-danger  { color: #ef4444; font-weight: 600; }
+
+/* Badges de Oportunidade */
+.badge-status {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 0;
+}
+
+.status-warning { color: #d97706; }
+.status-danger  { color: #dc2626; }
+.status-success { color: #059669; }
+
+/* Container da Seção */
+.predefined-section {
+    margin-bottom: 24px;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.section-title h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.section-title .subtitle {
+    font-size: 12px;
+    color: #9ca3af;
+}
+
+/* Grid de Cards */
+.predefined-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 colunas iguais */
+    gap: 16px;
+}
+
+/* Estilo do Mini Card */
+.segment-mini-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 16px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+}
+
+.segment-mini-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+}
+
+.segment-mini-card h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+}
+
+.segment-mini-card p {
+    font-size: 12px;
+    color: #6b7280;
+    line-height: 1.4;
+    margin-bottom: 12px;
+}
+
+/* Badges e Tags */
+.tag-badge {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.badge-blue { background: #eff6ff; color: #2563eb; }
+.badge-red  { background: #fef2f2; color: #dc2626; }
+
+.tag-group {
+    display: flex;
+    gap: 6px;
+}
+
+.tag-group span {
+    font-size: 10px;
+    background: #f3f4f6;
+    color: #6b7280;
+    padding: 2px 8px;
+    border-radius: 12px;
+}
+
+/* Ajustes para os filtros (Pills) */
+.filter-group {
+    margin-bottom: 24px;
+}
+
+.filter-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+}
+
+.pill-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    background: white;
+    color: #4b5563;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.pill:hover {
+    border-color: #d1d5db;
+    background: #f9fafb;
+}
+
+.pill.active {
+    background: #2563eb; /* Azul igual ao print */
+    color: white;
+    border-color: #2563eb;
+}
+
+.pill i {
+    font-size: 12px;
+}
+
+/* --- 1. SEÇÃO DE PRÉVIA (METRICS) --- */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 colunas como no protótipo */
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.stat-card {
+    background: #ffffff;
+    border: 1px solid #f1f5f9;
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza conforme imagem */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+}
+
+.stat-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+}
+
+.stat-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 4px;
+}
+
+.stat-status {
+    font-size: 11px;
+    color: #64748b;
+    background: #f8fafc;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+/* --- 2. CONSTRUTOR DE SEGMENTO (PILLS) --- */
+.segment-builder {
+    margin-top: 24px;
+}
+
+.filter-group {
+    margin-bottom: 20px;
+}
+
+.filter-group label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    color: #334155;
+    margin-bottom: 12px;
+}
+
+.pill-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.pill {
+    background: white;
+    border: 1px solid #e2e8f0;
+    color: #64748b;
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.pill:hover {
+    background: #f1f5f9;
+}
+
+.pill.active {
+    background: #2563eb; /* Azul do protótipo */
+    color: white;
+    border-color: #2563eb;
+}
+
+/* --- 3. TABELA E CORES DE STATUS --- */
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+}
+
+.comparison-table th {
+    text-align: left;
+    font-size: 11px;
+    color: #94a3b8;
+    padding: 12px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.comparison-table td {
+    padding: 14px 12px;
+    font-size: 13px;
+    color: #334155;
+}
+
+/* Cores de Valor na Tabela */
+.val-success { color: #10b981; font-weight: 600; }
+.val-warning { color: #f59e0b; font-weight: 600; }
+.val-danger { color: #ef4444; font-weight: 600; }
+
+/* Badges de Oportunidade */
+.badge-status {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.status-success { background: #ecfdf5; color: #059669; }
+.status-warning { background: #fffbeb; color: #d97706; }
+.status-danger { background: #fef2f2; color: #dc2626; }
+
+/* Indicadores de Cor (Dots) */
+.dot {
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+}
