@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>Feedback do Usuário | Dashboard</title>
+
+    <link rel="stylesheet" th:href="@{/css/layout.css}"/>
+    <link rel="stylesheet" th:href="@{/css/components.css}"/>
+    <link rel="stylesheet" th:href="@{/css/feedback-usuario.css}"/>
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <th:block th:replace="~{fragments/sidebar :: sidebar}"></th:block>
+
+    <div class="main-wrapper">
+
+        <th:block th:replace="~{fragments/header :: header(
+            'Feedback do Usuário',
+            'Análise de satisfação, esforço e indicadores de frustração'
+        )}"></th:block>
+
+        <main class="main-content">
+
+            <section class="feedback-top-grid">
+
+                <article class="chart-card nps-card">
+                    <div class="chart-card__title">NPS Geral</div>
+
+                    <div class="nps-gauge">
+                        <div class="nps-gauge__arc"></div>
+                        <div class="nps-gauge__needle"></div>
+                        <div class="nps-gauge__center"></div>
+
+                        <div class="nps-gauge__value">72</div>
+                        <div class="nps-gauge__label">Excelente</div>
+                    </div>
+
+                    <div class="nps-summary">
+                        <div class="nps-summary__item">
+                            <strong class="green">68%</strong>
+                            <span>Promotores</span>
+                        </div>
+
+                        <div class="nps-summary__item">
+                            <strong class="yellow">24%</strong>
+                            <span>Neutros</span>
+                        </div>
+
+                        <div class="nps-summary__item">
+                            <strong class="red">8%</strong>
+                            <span>Detratores</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="chart-card">
+                    <div class="chart-card__title">Effort Score</div>
+                    <div class="chart-card__sub">Distribuição da facilidade percebida</div>
+
+                    <div class="effort-list">
+                        <div class="effort-row">
+                            <span>Muito fácil</span>
+                            <div class="effort-track">
+                                <div class="effort-fill green" style="width:22%">22%</div>
+                            </div>
+                        </div>
+
+                        <div class="effort-row">
+                            <span>Fácil</span>
+                            <div class="effort-track">
+                                <div class="effort-fill light-green" style="width:32%">32%</div>
+                            </div>
+                        </div>
+
+                        <div class="effort-row">
+                            <span>Neutro</span>
+                            <div class="effort-track">
+                                <div class="effort-fill yellow" style="width:36%">36%</div>
+                            </div>
+                        </div>
+
+                        <div class="effort-row">
+                            <span>Difícil</span>
+                            <div class="effort-track">
+                                <div class="effort-fill orange" style="width:22%">22%</div>
+                            </div>
+                        </div>
+
+                        <div class="effort-row">
+                            <span>Muito difícil</span>
+                            <div class="effort-track">
+                                <div class="effort-fill red" style="width:12%">12%</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="effort-note">
+                        A maioria dos usuários considera a experiência fácil.
+                    </div>
+                </article>
+
+                <article class="chart-card">
+                    <div class="chart-card__title">Evolução do NPS</div>
+                    <div class="chart-card__sub">Tendência mensal de satisfação</div>
+
+                    <div class="nps-evolution">
+                        <canvas id="npsEvolutionChart" height="145"></canvas>
+                    </div>
+
+                    <div class="trend-note">
+                        Crescimento consistente de satisfação nos últimos 4 meses.
+                    </div>
+                </article>
+
+            </section>
+
+            <section class="chart-card">
+                <div class="chart-card__title">Indicadores de Frustração</div>
+                <div class="chart-card__sub">Eventos críticos detectados durante a experiência do usuário</div>
+
+                <table class="frustration-table">
+                    <thead>
+                    <tr>
+                        <th>Evento</th>
+                        <th>Página</th>
+                        <th>Ocorrências</th>
+                        <th>Tendência</th>
+                        <th>Severidade</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr>
+                        <td>Rage clicks</td>
+                        <td>Cadastro avançado</td>
+                        <td>4.820</td>
+                        <td class="trend-down">+18%</td>
+                        <td><span class="severity-badge critical">Crítico</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Dead clicks</td>
+                        <td>Página inicial</td>
+                        <td>3.140</td>
+                        <td class="trend-down">+12%</td>
+                        <td><span class="severity-badge warning">Atenção</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Abandono de formulário</td>
+                        <td>Inscrição em cursos</td>
+                        <td>2.780</td>
+                        <td class="trend-up">-6%</td>
+                        <td><span class="severity-badge warning">Atenção</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Erro de carregamento</td>
+                        <td>Portal de serviços</td>
+                        <td>1.960</td>
+                        <td class="trend-up">-9%</td>
+                        <td><span class="severity-badge critical">Crítico</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Navegação circular</td>
+                        <td>Busca interna</td>
+                        <td>1.420</td>
+                        <td class="trend-down">+7%</td>
+                        <td><span class="severity-badge critical">Crítico</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Voltar imediatamente</td>
+                        <td>Resultados de busca</td>
+                        <td>980</td>
+                        <td class="trend-down">+4%</td>
+                        <td><span class="severity-badge warning">Atenção</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="feedback-bottom-grid">
+
+                <article class="chart-card">
+                    <div class="chart-card__title">Depoimentos</div>
+
+                    <div class="testimonial-list">
+                        <div class="testimonial-item positive">
+                            <p class="testimonial-text">“A navegação ficou simples e consegui encontrar rapidamente o que precisava.”</p>
+                            <span class="testimonial-user">Ana Clara · MEI</span>
+                        </div>
+
+                        <div class="testimonial-item negative">
+                            <p class="testimonial-text">“O formulário de cadastro é longo e algumas etapas não ficam claras.”</p>
+                            <span class="testimonial-user">Roberto · Empreendedor</span>
+                        </div>
+
+                        <div class="testimonial-item positive">
+                            <p class="testimonial-text">“Gostei dos conteúdos recomendados. Pareciam bem alinhados ao meu perfil.”</p>
+                            <span class="testimonial-user">Marina · Estudante</span>
+                        </div>
+
+                        <div class="testimonial-item warning">
+                            <p class="testimonial-text">“A busca interna poderia mostrar resultados mais objetivos.”</p>
+                            <span class="testimonial-user">Lucas · Usuário recorrente</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="chart-card">
+                    <div class="chart-card__title">Sugestões Recorrentes</div>
+
+                    <div class="suggestion-list">
+                        <div class="suggestion-item">
+                            <strong>Simplificar cadastro</strong>
+                            <span>Reduzir campos obrigatórios e explicar cada etapa.</span>
+                        </div>
+
+                        <div class="suggestion-item">
+                            <strong>Melhorar busca</strong>
+                            <span>Priorizar resultados mais relevantes e filtros rápidos.</span>
+                        </div>
+
+                        <div class="suggestion-item">
+                            <strong>Evitar erros no portal</strong>
+                            <span>Revisar carregamento das páginas de serviços.</span>
+                        </div>
+
+                        <div class="suggestion-item">
+                            <strong>Guiar novos usuários</strong>
+                            <span>Adicionar mensagens de orientação durante o fluxo.</span>
+                        </div>
+                    </div>
+                </article>
+
+            </section>
+
+        </main>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script th:src="@{/js/layout.js}"></script>
+<script th:src="@{/js/feedback-usuario.js}"></script>
+
+</body>
+</html>
