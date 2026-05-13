@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Métricas de Engajamento | Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/layout.css}"/>
+    <link rel="stylesheet" th:href="@{/css/components.css}"/>
+    <link rel="stylesheet" th:href="@{/css/metricas-engajamento.css}"/>
+</head>
+<body>
+
+<div class="app-layout">
+
+    <!-- SIDEBAR -->
+    <th:block th:replace="~{fragments/sidebar :: sidebar}"></th:block>
+
+    <!-- MAIN -->
+    <div class="main-wrapper">
+
+        <!-- HEADER -->
+        <th:block th:replace="~{fragments/header :: header(
+            'Métricas de Engajamento',
+            'Análise detalhada do engajamento por segmento, conteúdo e horário'
+        )}"></th:block>
+
+        <!-- CONTEÚDO -->
+        <main class="main-content">
+
+            <!-- ── SEÇÃO 1: Horário + Desempenho ──────────── -->
+            <div class="charts-row charts-row--wide">
+
+                <!-- Horário de Maior Engajamento -->
+                <div class="chart-card">
+                    <div class="chart-card__title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                        </svg>
+                        Horário de Maior Engajamento
+                    </div>
+                    <div class="chart-card__sub">Distribuição de sessões e taxa de engajamento por hora do dia</div>
+                    <div class="chart-card__area">
+                        <div class="bar-chart-wrap">
+                            <div class="y-axis" id="yAxis"></div>
+                            <div class="bars-area" id="barsArea"></div>
+                        </div>
+                    </div>
+                    <div class="peak-note">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                        </svg>
+                        Pico de engajamento às 10h–11h e 13h–14h com +16% de conversão
+                    </div>
+                </div>
+
+                <!-- Desempenho por Conteúdo -->
+                <div class="chart-card chart-card--narrow">
+                    <div class="chart-card__title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+                            <polyline points="17 6 23 6 23 12"/>
+                        </svg>
+                        Desempenho por Conteúdo
+                    </div>
+                    <div class="chart-card__sub">Taxa de engajamento por tipo de conteúdo</div>
+                    <div class="chart-card__area">
+                        <div class="prog-list" id="progList"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── SEÇÃO 2: Retenção + Segmentos ─────────── -->
+            <div class="charts-row charts-row--wide">
+
+                <!-- Curva de Retenção -->
+                <div class="chart-card">
+                    <div class="chart-card__title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                        Curva de Retenção por Segmento
+                    </div>
+                    <div class="chart-card__sub">% de usuários que retornam após a primeira visita – por semana</div>
+                    <div class="chart-card__area">
+                        <canvas id="chartRetencao" height="160"></canvas>
+                    </div>
+                    <div class="chart-legend">
+                        <div class="chart-legend__item">
+                            <div class="chart-legend__dot" style="background:#f59e0b"></div>Consolidados
+                        </div>
+                        <div class="chart-legend__item">
+                            <div class="chart-legend__dot" style="background:#6366f1"></div>MEI
+                        </div>
+                        <div class="chart-legend__item">
+                            <div class="chart-legend__dot" style="background:#22c55e"></div>Estudantes
+                        </div>
+                        <div class="chart-legend__item">
+                            <div class="chart-legend__dot" style="background:#a78bfa"></div>Empreendedores
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Performance por Segmento -->
+                <div class="chart-card chart-card--narrow">
+                    <div class="chart-card__title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                        </svg>
+                        Performance por Segmento
+                    </div>
+                    <div class="chart-card__area">
+                        <table class="seg-table">
+                            <thead>
+                                <tr>
+                                    <th>Segmento</th>
+                                    <th>Engaj.</th>
+                                    <th>Retorno</th>
+                                    <th>Sessões</th>
+                                </tr>
+                            </thead>
+                            <tbody id="segTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── SEÇÃO 3: Radar ─────────────────────────── -->
+            <div class="charts-row">
+                <div class="chart-card">
+                    <div class="chart-card__title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                        </svg>
+                        Perfil de Comportamento por Segmento
+                    </div>
+                    <div class="chart-card__sub">Comparação multidimensional entre segmentos de usuários</div>
+                    <div class="chart-card__area radar-area">
+                        <canvas id="chartRadar" width="280" height="260"></canvas>
+                        <div class="chart-legend chart-legend--col" id="radarLegend"></div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script th:src="@{/js/layout.js}"></script>
+<script th:src="@{/js/metricas-engajamento.js}"></script>
+</body>
+</html>

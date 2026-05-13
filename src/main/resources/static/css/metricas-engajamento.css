@@ -1,0 +1,140 @@
+/* metricas-engajamento.css — estilos exclusivos da página de Métricas */
+
+.charts-row--wide {
+    grid-template-columns: 1fr 320px;
+}
+
+.chart-card__title {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+.chart-card__title svg {
+    width: 15px;
+    height: 15px;
+    stroke: #6366f1;
+    flex-shrink: 0;
+}
+
+/* ── Bar chart ───────────────────────────────────────── */
+.bar-chart-wrap {
+    height: 155px;
+    position: relative;
+    padding-bottom: 20px;
+}
+.bar-chart-wrap::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 20px 34px;
+    background: repeating-linear-gradient(
+        to bottom,
+        var(--border) 0, var(--border) 1px,
+        transparent 1px, transparent 25%
+    );
+    pointer-events: none;
+}
+.y-axis {
+    position: absolute;
+    left: 0; top: 0; bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 9px;
+    color: var(--text-muted);
+    width: 32px;
+    text-align: right;
+    padding-right: 4px;
+}
+.bars-area {
+    position: absolute;
+    left: 34px; right: 0; top: 0; bottom: 20px;
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+}
+.bar-col {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 3px;
+}
+.bar-col .bar {
+    width: 100%;
+    border-radius: 3px 3px 0 0;
+    flex-shrink: 0;
+    min-height: 2px;
+    background: linear-gradient(180deg, #a5b4fc 0%, #6366f1 100%);
+    transition: opacity .15s;
+}
+.bar-col .bar--peak {
+    background: linear-gradient(180deg, #6366f1 0%, #3730a3 100%);
+}
+.bar-col .bar:hover { opacity: .75; }
+.bar-col .bar-label {
+    font-size: 8px;
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+.peak-note {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #eef2ff;
+    border-radius: var(--radius-sm);
+    padding: 6px 10px;
+    font-size: 10px;
+    color: #4338ca;
+}
+.peak-note svg {
+    width: 13px; height: 13px;
+    stroke: #4338ca; fill: none; stroke-width: 2; flex-shrink: 0;
+}
+
+/* ── Progress bars ───────────────────────────────────── */
+.prog-list { display: flex; flex-direction: column; gap: 11px; padding-top: 4px; }
+.prog-row  { display: flex; align-items: center; gap: 8px; }
+.prog-label { font-size: 11px; color: var(--text-secondary); width: 92px; flex-shrink: 0; }
+.prog-track { flex: 1; height: 7px; background: #f3f4f6; border-radius: 99px; overflow: hidden; }
+.prog-fill  { height: 100%; border-radius: 99px; }
+.prog-pct   { font-size: 11px; font-weight: 700; width: 30px; text-align: right; }
+
+/* ── Segment table ───────────────────────────────────── */
+.seg-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+.seg-table thead th {
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 9.5px;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+}
+.seg-table thead th:not(:first-child) { text-align: center; }
+.seg-table tbody td { padding: 8px; border-bottom: 1px solid var(--border); }
+.seg-table tbody tr:last-child td { border-bottom: none; }
+.seg-name  { display: flex; align-items: center; gap: 6px; }
+.seg-dot   { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.seg-pct   { font-size: 9px; color: var(--text-muted); background: #f3f4f6; border-radius: 4px; padding: 1px 5px; margin-left: 2px; }
+.td-c { text-align: center; color: var(--text-secondary); }
+.td-s { text-align: center; font-weight: 600; color: var(--text-primary); }
+
+/* ── Radar ───────────────────────────────────────────── */
+.radar-area {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+.chart-legend--col {
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 0;
+}
