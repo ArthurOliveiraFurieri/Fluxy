@@ -1,7 +1,14 @@
 /* metricas-engajamento.css — estilos exclusivos da página de Métricas */
-
+.charts-row {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 16px;
+}
 .charts-row--wide {
     grid-template-columns: 1fr 320px;
+}
+.charts-row--full {
+    grid-template-columns: 1fr;
 }
 
 .chart-card__title {
@@ -131,6 +138,12 @@
     display: flex;
     align-items: center;
     gap: 24px;
+    justify-content: center;
+    width: 100%;
+}
+#chartRadar {
+    max-width: 320px;
+    max-height: 300px;
 }
 .chart-legend--col {
     flex-direction: column;
