@@ -42,4 +42,13 @@ public class DashboardController {
         model.addAttribute("navItems",     navService.getNavItemsForPage("metricas-engajamento"));
         return "metricas-engajamento";
     }
+
+    @GetMapping("/feedback-usuario")
+    public String feedbackUsuario(Model model) {
+     model.addAttribute("pageTitle",    "Feedback do Usuário");
+     model.addAttribute("pageSubtitle", "Análise de satisfação, esforço e indicadores de frustração");
+     model.addAttribute("activePage",   "feedback-usuario");
+     model.addAttribute("navItems",     navService.getNavItemsForPage("feedback-usuario"));
+     return "feedback-usuario";
+    }
 }
