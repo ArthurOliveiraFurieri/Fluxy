@@ -14,7 +14,6 @@
     <!-- Navegação principal -->
     <nav class="sidebar-nav">
 
-        <!-- Visão Geral -->
         <a th:href="@{/}"
            th:classappend="${activePage == 'visao-geral'} ? 'active' : ''"
            class="sidebar-item"
@@ -25,9 +24,9 @@
                 <rect x="3" y="14" width="7" height="7" rx="1"/>
                 <rect x="14" y="14" width="7" height="7" rx="1"/>
             </svg>
+            <span class="sidebar-label">Visão Geral</span>
         </a>
 
-        <!-- Jornada do Usuário -->
         <a th:href="@{/jornada}"
            th:classappend="${activePage == 'jornada'} ? 'active' : ''"
            class="sidebar-item"
@@ -37,9 +36,9 @@
                 <polyline points="8,12 12,8 16,12"/>
                 <line x1="12" y1="8" x2="12" y2="16"/>
             </svg>
+            <span class="sidebar-label">Jornada do Usuário</span>
         </a>
 
-        <!-- Usuários -->
         <a th:href="@{/usuarios}"
            th:classappend="${activePage == 'usuarios'} ? 'active' : ''"
            class="sidebar-item"
@@ -48,9 +47,9 @@
                 <circle cx="12" cy="8" r="4"/>
                 <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
             </svg>
+            <span class="sidebar-label">Usuários</span>
         </a>
 
-        <!-- Métricas de Engajamento -->
         <a th:href="@{/metricas-engajamento}"
            th:classappend="${activePage == 'metricas-engajamento'} ? 'active' : ''"
            class="sidebar-item"
@@ -60,19 +59,19 @@
                 <line x1="12" y1="20" x2="12" y2="4"/>
                 <line x1="6"  y1="20" x2="6"  y2="14"/>
             </svg>
+            <span class="sidebar-label">Métricas</span>
         </a>
 
-        <!-- Engajamento -->
         <a th:href="@{/heatmap-e-comportamento}"
-            th:classappend="${activePage == 'heatmap-e-comportamento'} ? 'active' : ''"
-            class="sidebar-item"
-            title="Engajamento">
+           th:classappend="${activePage == 'heatmap-e-comportamento'} ? 'active' : ''"
+           class="sidebar-item"
+           title="Engajamento">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
                 <path d="M12 2C8 7 4 9 4 13a8 8 0 0016 0c0-4-4-6-8-11z"/>
             </svg>
+            <span class="sidebar-label">Engajamento</span>
         </a>
 
-        <!-- Feedback do Usuário -->
         <a th:href="@{/feedback-usuario}"
            th:classappend="${activePage == 'feedback-usuario'} ? 'active' : ''"
            class="sidebar-item"
@@ -80,9 +79,9 @@
             <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
                 <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
             </svg>
+            <span class="sidebar-label">Feedback</span>
         </a>
 
-        <!-- Configurações -->
         <a th:href="@{/configuracoes}"
            th:classappend="${activePage == 'configuracoes'} ? 'active' : ''"
            class="sidebar-item"
@@ -92,6 +91,7 @@
                 <line x1="8"  y1="12" x2="20" y2="12"/>
                 <line x1="12" y1="18" x2="20" y2="18"/>
             </svg>
+            <span class="sidebar-label">Configurações</span>
         </a>
 
     </nav>
