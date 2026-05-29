@@ -113,25 +113,26 @@
 .prog-pct   { font-size: 11px; font-weight: 700; width: 30px; text-align: right; }
 
 /* ── Segment table ───────────────────────────────────── */
-.seg-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+.seg-table { width: 100%; border-collapse: collapse; font-size: 11px; table-layout: fixed; }
 .seg-table thead th {
     color: var(--text-muted);
     font-weight: 600;
     font-size: 9.5px;
     letter-spacing: .05em;
     text-transform: uppercase;
-    padding: 4px 8px;
+    padding: 4px 6px;
     border-bottom: 1px solid var(--border);
     text-align: left;
 }
-.seg-table thead th:not(:first-child) { text-align: center; }
-.seg-table tbody td { padding: 8px; border-bottom: 1px solid var(--border); }
+.seg-table thead th:not(:first-child) { text-align: center; width: 52px; }
+.seg-table thead th:first-child        { width: auto; }
+.seg-table tbody td { padding: 6px 6px; border-bottom: 1px solid var(--border); overflow: hidden; }
 .seg-table tbody tr:last-child td { border-bottom: none; }
-.seg-name  { display: flex; align-items: center; gap: 6px; }
+.seg-name  { display: flex; align-items: center; gap: 5px; white-space: nowrap; overflow: hidden; }
 .seg-dot   { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-.seg-pct   { font-size: 9px; color: var(--text-muted); background: #f3f4f6; border-radius: 4px; padding: 1px 5px; margin-left: 2px; }
-.td-c { text-align: center; color: var(--text-secondary); }
-.td-s { text-align: center; font-weight: 600; color: var(--text-primary); }
+.seg-pct   { font-size: 9px; color: var(--text-muted); background: #f3f4f6; border-radius: 4px; padding: 1px 4px; flex-shrink: 0; }
+.td-c { text-align: center; color: var(--text-secondary); white-space: nowrap; }
+.td-s { text-align: center; font-weight: 600; color: var(--text-primary); white-space: nowrap; }
 
 /* ── Radar ───────────────────────────────────────────── */
 .radar-area {

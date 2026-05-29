@@ -18,6 +18,30 @@
     padding: 16px 18px;
 }
 
+/* ── Dropdown de filtros ──────────────────────────────── */
+.filtro-dropdown {
+    position: absolute;
+    z-index: 9999;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.10);
+    min-width: 160px;
+    padding: 4px 0;
+}
+.filtro-dropdown__item {
+    padding: 8px 14px;
+    font-size: 13px;
+    color: #374151;
+    cursor: pointer;
+    transition: background .15s;
+}
+.filtro-dropdown__item:hover,
+.filtro-dropdown__item.ativo {
+    background: #f3f4f6;
+    color: #6366f1;
+}
+
 /* ── Insight cards ────────────────────────────────────── */
 .insights-grid {
     display: grid;

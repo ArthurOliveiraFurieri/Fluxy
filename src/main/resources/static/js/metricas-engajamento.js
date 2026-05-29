@@ -1,4 +1,4 @@
-/* metricas-engajamento.js — gráficos e comportamentos da página de Métricas */
+/* metricas-engajamento.js — dados vindos da API + filtros funcionais */
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -6,181 +6,420 @@ document.addEventListener('DOMContentLoaded', function () {
     Chart.defaults.font.size   = 10;
     Chart.defaults.color       = '#9ca3af';
 
-    /* ── Dados ──────────────────────────────────────────── */
+    /* ── Estado dos filtros ──────────────────────────── */
+    const filtros = {
+        periodo:  7,
+        segmento: 'todos',
+        fonte:    'todas',
+        tipo:     'todos',
+    };
 
-    const horasData = [
-        {h:'06h',v:800 },{h:'07h',v:1200},{h:'08h',v:1900},{h:'09h',v:2600},
-        {h:'10h',v:3400,peak:true},{h:'11h',v:3600,peak:true},{h:'12h',v:2800},
-        {h:'13h',v:3200,peak:true},{h:'14h',v:3300,peak:true},{h:'15h',v:2900},
-        {h:'16h',v:2500},{h:'17h',v:2200},{h:'18h',v:2000},{h:'19h',v:1700},
-        {h:'20h',v:1400},{h:'21h',v:900}
+    const periodoOpcoes = [
+        { valor: 7,  label: 'Últimos 7 dias'  },
+        { valor: 14, label: 'Últimos 14 dias' },
+        { valor: 30, label: 'Últimos 30 dias' },
     ];
 
-    const conteudoData = [
-        { label: 'Ferramentas',   pct: 81, color: '#22c55e' },
-        { label: 'Consultorias',  pct: 76, color: '#6366f1' },
-        { label: 'Cursos Online', pct: 72, color: '#6366f1' },
-        { label: 'Eventos',       pct: 68, color: '#f59e0b' },
-        { label: 'Artigos/Blog',  pct: 54, color: '#ef4444' },
+    const fonteOpcoes = [
+        { valor: 'todas',    label: 'Todas as fontes', mult: 1.00 },
+        { valor: 'organico', label: 'Orgânico',        mult: 1.10 },
+        { valor: 'social',   label: 'Social',          mult: 0.85 },
+        { valor: 'direto',   label: 'Direto',          mult: 0.95 },
     ];
 
-    const retencaoData = [
-        { label: 'Consolidados',   color: '#f59e0b', data: [100, 68, 54, 44] },
-        { label: 'MEI',            color: '#6366f1', data: [100, 72, 58, 46] },
-        { label: 'Estudantes',     color: '#22c55e', data: [100, 60, 44, 34] },
-        { label: 'Empreendedores', color: '#a78bfa', data: [100, 65, 50, 40] },
-    ];
+    /* ── Cache dos dados brutos ──────────────────────── */
+    let cacheHoras     = null;
+    let cacheConteudo  = null;
+    let cacheRetencao  = null;
+    let cacheSegmentos = null;
+    let cacheRadar     = null;
 
-    const segmentosData = [
-        { nome: 'Empreendedores',    cor: '#6366f1', pct: '38%', engaj: '71%', retorno: '45%', sessoes: '54.150' },
-        { nome: 'MEI',               cor: '#22c55e', pct: '27%', engaj: '74%', retorno: '52%', sessoes: '38.475' },
-        { nome: 'Estudantes',        cor: '#a78bfa', pct: '18%', engaj: '48%', retorno: '22%', sessoes: '7.125'  },
-        { nome: 'Emp. Consolidados', cor: '#f59e0b', pct: '12%', engaj: '62%', retorno: '33%', sessoes: '25.650' },
-        { nome: 'Iniciantes',        cor: '#3b82f6', pct: '79%', engaj: '79%', retorno: '58%', sessoes: '17.100' },
-        { nome: 'Outros',            cor: '#9ca3af', pct: '5%',  engaj: '48%', retorno: '22%', sessoes: '7.125'  },
-    ];
+    let chartRetencao = null;
+    let chartRadar    = null;
 
-    const radarData = [
-        { label: 'Consolidados',   color: '#f59e0b', vals: [82, 70, 75, 65, 80, 60] },
-        { label: 'MEI',            color: '#6366f1', vals: [70, 78, 68, 72, 65, 82] },
-        { label: 'Estudantes',     color: '#22c55e', vals: [60, 55, 78, 50, 68, 72] },
-        { label: 'Empreendedores', color: '#a78bfa', vals: [75, 68, 65, 80, 58, 68] },
-    ];
+    /* ── Dropdowns ───────────────────────────────────── */
+    function criarDropdown(anchorId, opcoes, onSelect) {
+        const anchor = document.getElementById(anchorId);
+        if (!anchor) return;
 
-    /* ── 1. Bar Chart ───────────────────────────────────── */
-    const yAxis    = document.getElementById('yAxis');
-    const barsArea = document.getElementById('barsArea');
+        anchor.addEventListener('click', e => {
+            e.stopPropagation();
+            fecharTodosDropdowns();
 
-    if (yAxis) {
-        yAxis.innerHTML = ['3600','2700','1800','900','0']
-            .map(l => `<span>${l}</span>`).join('');
-    }
+            const menu = document.createElement('div');
+            menu.className = 'filtro-dropdown';
 
-    if (barsArea) {
-        horasData.forEach(d => {
-            const pct = Math.round((d.v / 3600) * 100);
-            const col = document.createElement('div');
-            col.className = 'bar-col';
-            col.innerHTML = `
-                <div class="bar${d.peak ? ' bar--peak' : ''}" style="height:${pct}%"></div>
-                <span class="bar-label">${d.h}</span>
-            `;
-            barsArea.appendChild(col);
+            opcoes.forEach(op => {
+                const item = document.createElement('div');
+                item.className = 'filtro-dropdown__item' + (op.ativo ? ' ativo' : '');
+                item.textContent = op.label;
+                item.addEventListener('click', () => {
+                    onSelect(op);
+                    anchor.querySelector('span').textContent = op.label;
+                    fecharTodosDropdowns();
+                });
+                menu.appendChild(item);
+            });
+
+            const rect = anchor.getBoundingClientRect();
+            menu.style.top  = (rect.bottom + window.scrollY + 4) + 'px';
+            menu.style.left = rect.left + 'px';
+            document.body.appendChild(menu);
         });
     }
 
-    /* ── 2. Progress Bars ───────────────────────────────── */
-    const progList = document.getElementById('progList');
-    if (progList) {
-        progList.innerHTML = conteudoData.map(c => `
-            <div class="prog-row">
-                <span class="prog-label">${c.label}</span>
-                <div class="prog-track">
-                    <div class="prog-fill" style="width:${c.pct}%;background:${c.color}"></div>
-                </div>
-                <span class="prog-pct" style="color:${c.color}">${c.pct}%</span>
-            </div>
-        `).join('');
+    function fecharTodosDropdowns() {
+        document.querySelectorAll('.filtro-dropdown').forEach(d => d.remove());
     }
 
-    /* ── 3. Line Chart — Retenção ───────────────────────── */
-    new Chart(document.getElementById('chartRetencao'), {
-        type: 'line',
-        data: {
-            labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'],
-            datasets: retencaoData.map(s => ({
-                label:                s.label,
-                data:                 s.data,
-                borderColor:          s.color,
-                backgroundColor:      s.color + '14',
-                fill:                 false,
-                tension:              0.35,
-                borderWidth:          2,
-                pointRadius:          4,
-                pointHoverRadius:     6,
-                pointBackgroundColor: s.color,
-                pointBorderColor:     '#fff',
-                pointBorderWidth:     1.5,
-            })),
-        },
-        options: {
-            plugins: {
-                legend: { display: false },
-                tooltip: { mode: 'index', intersect: false },
-            },
-            scales: {
-                x: { grid: { display: false }, border: { display: false } },
-                y: {
-                    min: 0, max: 100,
-                    grid: { color: '#f3f4f6' },
-                    border: { display: false },
-                    ticks: { callback: v => v + '%', maxTicksLimit: 5 },
-                },
-            },
-        },
+    document.addEventListener('click', fecharTodosDropdowns);
+
+    /* ── Inicializa filtros ───────────────────────────── */
+    criarDropdown('filterPeriodo', periodoOpcoes, op => {
+        filtros.periodo = op.valor;
+        renderHoras();
+        renderSegmentos();
     });
 
-    /* ── 4. Tabela de Segmentos ─────────────────────────── */
-    const segTableBody = document.getElementById('segTableBody');
-    if (segTableBody) {
-        segTableBody.innerHTML = segmentosData.map(s => `
-            <tr>
-                <td>
-                    <div class="seg-name">
-                        <div class="seg-dot" style="background:${s.cor}"></div>
-                        ${s.nome}
-                        <span class="seg-pct">${s.pct}</span>
+    const segmentoOpcoes = () => [
+        { valor: 'todos', label: 'Todos os usuários' },
+        ...(cacheSegmentos || []).map(s => ({ valor: s.nome, label: s.nome })),
+    ];
+
+    document.getElementById('filterUsuarios')?.addEventListener('click', e => {
+        e.stopPropagation();
+        fecharTodosDropdowns();
+
+        const anchor = document.getElementById('filterUsuarios');
+        const menu   = document.createElement('div');
+        menu.className = 'filtro-dropdown';
+
+        segmentoOpcoes().forEach(op => {
+            const item = document.createElement('div');
+            item.className = 'filtro-dropdown__item';
+            item.textContent = op.label;
+            item.addEventListener('click', () => {
+                filtros.segmento = op.valor;
+                anchor.querySelector('span').textContent = op.label;
+                fecharTodosDropdowns();
+                renderRetencao();
+                renderSegmentos();
+                renderRadar();
+            });
+            menu.appendChild(item);
+        });
+
+        const rect = anchor.getBoundingClientRect();
+        menu.style.top  = (rect.bottom + window.scrollY + 4) + 'px';
+        menu.style.left = rect.left + 'px';
+        document.body.appendChild(menu);
+    });
+
+    criarDropdown('filterFontes', fonteOpcoes, op => {
+        filtros.fonte = op.valor;
+        renderConteudo();
+        renderHoras();
+    });
+
+    document.getElementById('filterTipos')?.addEventListener('click', e => {
+        e.stopPropagation();
+        fecharTodosDropdowns();
+
+        const anchor  = document.getElementById('filterTipos');
+        const opcoes  = [
+            { valor: 'todos', label: 'Todos os tipos' },
+            ...(cacheConteudo || []).map(c => ({ valor: c.label, label: c.label })),
+        ];
+
+        const menu = document.createElement('div');
+        menu.className = 'filtro-dropdown';
+
+        opcoes.forEach(op => {
+            const item = document.createElement('div');
+            item.className = 'filtro-dropdown__item';
+            item.textContent = op.label;
+            item.addEventListener('click', () => {
+                filtros.tipo = op.valor;
+                anchor.querySelector('span').textContent = op.label;
+                fecharTodosDropdowns();
+                renderConteudo();
+            });
+            menu.appendChild(item);
+        });
+
+        const rect = anchor.getBoundingClientRect();
+        menu.style.top  = (rect.bottom + window.scrollY + 4) + 'px';
+        menu.style.left = rect.left + 'px';
+        document.body.appendChild(menu);
+    });
+
+    /* ── Botão refresh ───────────────────────────────── */
+    document.getElementById('btnRefresh')?.addEventListener('click', () => {
+        const btn = document.getElementById('btnRefresh');
+        btn.classList.add('spinning');
+        carregarTudo().finally(() => btn.classList.remove('spinning'));
+    });
+
+    /* ── Carga inicial ───────────────────────────────── */
+    carregarTudo();
+
+    /* ── Orquestrador ────────────────────────────────── */
+    async function carregarTudo() {
+        const [horas, conteudo, retencao, segmentos, radar] = await Promise.all([
+            fetchJson('/api/metricas/horas'),
+            fetchJson('/api/metricas/conteudo'),
+            fetchJson('/api/metricas/retencao'),
+            fetchJson('/api/metricas/segmentos'),
+            fetchJson('/api/metricas/radar'),
+        ]);
+
+        cacheHoras     = horas;
+        cacheConteudo  = conteudo;
+        cacheRetencao  = retencao;
+        cacheSegmentos = segmentos;
+        cacheRadar     = radar;
+
+        renderHoras();
+        renderConteudo();
+        renderRetencao();
+        renderSegmentos();
+        renderRadar();
+    }
+
+    /* ── Multiplicador de fonte ──────────────────────── */
+    function multFonte() {
+        return fonteOpcoes.find(f => f.valor === filtros.fonte)?.mult ?? 1;
+    }
+
+    /* ── Multiplicador de período ────────────────────── */
+    function multPeriodo() {
+        const tabela = { 7: 1, 14: 1.9, 30: 3.8 };
+        return tabela[filtros.periodo] ?? 1;
+    }
+
+    /* ── 1. Bar Chart — Horas ────────────────────────── */
+    function renderHoras() {
+        if (!cacheHoras) return;
+        const mult = multPeriodo() * multFonte();
+        const horas = cacheHoras.map(h => ({ ...h, valor: Math.round(h.valor * mult) }));
+
+        const maxValor = Math.max(...horas.map(h => h.valor));
+        const topo     = Math.ceil(maxValor / 900) * 900;
+
+        const yAxis = document.getElementById('yAxis');
+        if (yAxis) {
+            const steps = [topo, topo * 0.75, topo * 0.5, topo * 0.25, 0];
+            yAxis.innerHTML = steps.map(v => `<span>${Math.round(v).toLocaleString('pt-BR')}</span>`).join('');
+        }
+
+        const barsArea = document.getElementById('barsArea');
+        if (barsArea) {
+            barsArea.innerHTML = '';
+            horas.forEach(h => {
+                const pct = Math.round((h.valor / topo) * 100);
+                const col = document.createElement('div');
+                col.className = 'bar-col';
+                col.title = `${h.hora}: ${h.valor.toLocaleString('pt-BR')} sessões`;
+                col.innerHTML = `
+                    <div class="bar${h.peak ? ' bar--peak' : ''}" style="height:${pct}%"></div>
+                    <span class="bar-label">${h.hora}</span>
+                `;
+                barsArea.appendChild(col);
+            });
+        }
+    }
+
+    /* ── 2. Progress Bars — Conteúdo ─────────────────── */
+    function renderConteudo() {
+        if (!cacheConteudo) return;
+        const mult = multFonte();
+
+        let dados = cacheConteudo;
+        if (filtros.tipo !== 'todos') {
+            dados = dados.filter(c => c.label === filtros.tipo);
+        }
+
+        const progList = document.getElementById('progList');
+        if (progList) {
+            if (dados.length === 0) {
+                progList.innerHTML = '<p style="color:#9ca3af;font-size:13px;padding:8px 0">Nenhum resultado para este filtro.</p>';
+                return;
+            }
+            progList.innerHTML = dados.map(c => {
+                const pct = Math.min(99, Math.round(c.percentual * mult));
+                return `
+                    <div class="prog-row">
+                        <span class="prog-label">${c.label}</span>
+                        <div class="prog-track">
+                            <div class="prog-fill" style="width:${pct}%;background:${c.cor}"></div>
+                        </div>
+                        <span class="prog-pct" style="color:${c.cor}">${pct}%</span>
                     </div>
-                </td>
-                <td class="td-c">${s.engaj}</td>
-                <td class="td-c">${s.retorno}</td>
-                <td class="td-s">${s.sessoes}</td>
-            </tr>
-        `).join('');
+                `;
+            }).join('');
+        }
     }
 
-    /* ── 5. Radar ───────────────────────────────────────── */
-    new Chart(document.getElementById('chartRadar'), {
-        type: 'radar',
-        data: {
-            labels: ['Engajamento', 'Retenção', 'Conteúdo', 'Conversão', 'Satisfação', 'Tempo'],
-            datasets: radarData.map(d => ({
-                label:                d.label,
-                data:                 d.vals,
-                borderColor:          d.color,
-                backgroundColor:      d.color + '28',
-                borderWidth:          2,
-                pointRadius:          3,
-                pointBackgroundColor: d.color,
-                pointBorderColor:     '#fff',
-                pointBorderWidth:     1.5,
-            })),
-        },
-        options: {
-            plugins: {
-                legend: { display: false },
-                tooltip: { callbacks: { label: c => ` ${c.dataset.label}: ${c.parsed.r}` } },
-            },
-            scales: {
-                r: {
-                    min: 0, max: 100,
-                    ticks: { stepSize: 25, backdropColor: 'transparent' },
-                    grid:  { color: '#e5e7eb' },
-                    pointLabels: { font: { size: 11 }, color: '#6b7280' },
+    /* ── 3. Line Chart — Retenção ────────────────────── */
+    function renderRetencao() {
+        if (!cacheRetencao) return;
+
+        let dados = cacheRetencao;
+        if (filtros.segmento !== 'todos') {
+            dados = dados.filter(r => r.label === filtros.segmento);
+        }
+
+        const datasets = dados.map(r => ({
+            label:                r.label,
+            data:                 [r.semana1, r.semana2, r.semana3, r.semana4],
+            borderColor:          r.cor,
+            backgroundColor:      r.cor + '14',
+            fill:                 false,
+            tension:              0.35,
+            borderWidth:          2,
+            pointRadius:          4,
+            pointHoverRadius:     6,
+            pointBackgroundColor: r.cor,
+            pointBorderColor:     '#fff',
+            pointBorderWidth:     1.5,
+        }));
+
+        const canvas = document.getElementById('chartRetencao');
+        if (!canvas) return;
+
+        if (chartRetencao) {
+            chartRetencao.data.datasets = datasets;
+            chartRetencao.update('active');
+        } else {
+            chartRetencao = new Chart(canvas, {
+                type: 'line',
+                data: {
+                    labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'],
+                    datasets,
                 },
-            },
-        },
-    });
-
-    /* Legenda do radar */
-    const radarLegend = document.getElementById('radarLegend');
-    if (radarLegend) {
-        radarLegend.innerHTML = radarData.map(d => `
-            <div class="chart-legend__item">
-                <div class="chart-legend__dot" style="background:${d.color}"></div>
-                ${d.label}
-            </div>
-        `).join('');
+                options: {
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { mode: 'index', intersect: false },
+                    },
+                    scales: {
+                        x: { grid: { display: false }, border: { display: false } },
+                        y: {
+                            min: 0, max: 100,
+                            grid: { color: '#f3f4f6' },
+                            border: { display: false },
+                            ticks: { callback: v => v + '%', maxTicksLimit: 5 },
+                        },
+                    },
+                },
+            });
+        }
     }
 
+    /* ── 4. Tabela de Segmentos ──────────────────────── */
+    function renderSegmentos() {
+        if (!cacheSegmentos) return;
+        const multP = multPeriodo();
+
+        let dados = cacheSegmentos;
+        if (filtros.segmento !== 'todos') {
+            dados = dados.filter(s => s.nome === filtros.segmento);
+        }
+
+        const tbody = document.getElementById('segTableBody');
+        if (tbody) {
+            if (dados.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" style="color:#9ca3af;font-size:13px;text-align:center;padding:12px">Nenhum resultado.</td></tr>';
+                return;
+            }
+            tbody.innerHTML = dados.map(s => `
+                <tr>
+                    <td>
+                        <div class="seg-name">
+                            <div class="seg-dot" style="background:${s.cor}"></div>
+                            ${s.nome}
+                            <span class="seg-pct">${s.pct}%</span>
+                        </div>
+                    </td>
+                    <td class="td-c">${s.engajamento}%</td>
+                    <td class="td-c">${s.retorno}%</td>
+                    <td class="td-s">${Math.round(s.sessoes * multP).toLocaleString('pt-BR')}</td>
+                </tr>
+            `).join('');
+        }
+    }
+
+    /* ── 5. Radar ────────────────────────────────────── */
+    function renderRadar() {
+        if (!cacheRadar) return;
+
+        let dados = cacheRadar;
+        if (filtros.segmento !== 'todos') {
+            dados = dados.filter(d => d.label === filtros.segmento);
+        }
+
+        const datasets = dados.map(d => ({
+            label:                d.label,
+            data:                 [d.val1, d.val2, d.val3, d.val4, d.val5, d.val6],
+            borderColor:          d.cor,
+            backgroundColor:      d.cor + '28',
+            borderWidth:          2,
+            pointRadius:          3,
+            pointBackgroundColor: d.cor,
+            pointBorderColor:     '#fff',
+            pointBorderWidth:     1.5,
+        }));
+
+        const canvas = document.getElementById('chartRadar');
+        if (!canvas) return;
+
+        if (chartRadar) {
+            chartRadar.data.datasets = datasets;
+            chartRadar.update('active');
+        } else {
+            chartRadar = new Chart(canvas, {
+                type: 'radar',
+                data: {
+                    labels: ['Engajamento', 'Retenção', 'Conteúdo', 'Conversão', 'Satisfação', 'Tempo'],
+                    datasets,
+                },
+                options: {
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { callbacks: { label: c => ` ${c.dataset.label}: ${c.parsed.r}` } },
+                    },
+                    scales: {
+                        r: {
+                            min: 0, max: 100,
+                            ticks: { stepSize: 25, backdropColor: 'transparent' },
+                            grid:  { color: '#e5e7eb' },
+                            pointLabels: { font: { size: 11 }, color: '#6b7280' },
+                        },
+                    },
+                },
+            });
+        }
+
+        const radarLegend = document.getElementById('radarLegend');
+        if (radarLegend) {
+            radarLegend.innerHTML = dados.map(d => `
+                <div class="chart-legend__item">
+                    <div class="chart-legend__dot" style="background:${d.cor}"></div>
+                    ${d.label}
+                </div>
+            `).join('');
+        }
+    }
+
+    /* ── Helper ──────────────────────────────────────── */
+    async function fetchJson(url) {
+        try {
+            const res = await fetch(url);
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            return await res.json();
+        } catch (e) {
+            console.error('Erro ao buscar', url, e);
+            return null;
+        }
+    }
 });
