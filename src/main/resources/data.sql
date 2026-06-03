@@ -80,3 +80,44 @@ INSERT INTO segmento (id, nome, cor, pct, engajamento, retorno, sessoes) VALUES
 (4, 'Emp. Consolidados', '#f59e0b', 12, 62, 33, 25650),
 (5, 'Iniciantes',        '#3b82f6',  5, 79, 58, 17100),
 (6, 'Outros',            '#9ca3af',  5, 48, 22,  7125);
+
+-- ── Heatmap e Comportamento ─────────────────────
+INSERT INTO heatmap_bloco (id, secao, posicao, nome, intensidade) VALUES
+(1, 'Navegação', 1, 'Logo SEBRAE', 'bg-baixo'),
+(2, 'Navegação', 2, '', 'bg-baixo'),
+(3, 'Navegação', 3, '', 'bg-empty'),
+(4, 'Navegação', 4, 'Cursos', 'bg-alto'),
+(5, 'Navegação', 5, 'Ferramentas', 'bg-alto'),
+(6, 'Navegação', 6, 'Consultorias', 'bg-medio'),
+(7, 'Navegação', 7, 'SEBRAE-SP', 'bg-medio'),
+(8, 'Navegação', 8, '', 'bg-empty'),
+(9, 'Navegação', 9, 'Busca', 'bg-alto'),
+(10, 'Hero', 1, '', 'bg-empty'),
+(11, 'Hero', 2, '', 'bg-empty'),
+(12, 'Hero', 3, 'CTA Principal', 'bg-baixo'),
+(13, 'Hero', 4, '', 'bg-medio'),
+(14, 'Hero', 5, '', 'bg-medio'),
+(15, 'Hero', 6, 'Imagem Hero', 'bg-muito-baixo'),
+(16, 'Hero', 7, '', 'bg-muito-baixo'),
+(17, 'Hero', 8, '', 'bg-muito-baixo'),
+(18, 'Hero', 9, '', 'bg-empty'),
+(19, 'Acesso Rápido', 1, 'Portal MEI', 'bg-alto'),
+(20, 'Acesso Rápido', 2, '', 'bg-alto'),
+(21, 'Acesso Rápido', 3, 'Cursos Gratuitos', 'bg-alto'),
+(22, 'Acesso Rápido', 4, '', 'bg-empty'),
+(23, 'Acesso Rápido', 5, 'Capital de Giro', 'bg-baixo'),
+(24, 'Acesso Rápido', 6, '', 'bg-empty'),
+(25, 'Acesso Rápido', 7, 'Consultoria', 'bg-baixo'),
+(26, 'Acesso Rápido', 8, 'Eventos', 'bg-baixo'),
+(27, 'Acesso Rápido', 9, '', 'bg-baixo');
+
+INSERT INTO elemento_clicado (id, rank, nome, percentual) VALUES
+(1, 1, 'BACKEND FUNCIONANDO', 94),
+(2, 2, 'Cursos', 92),
+(3, 3, 'Portal MEI', 88),
+(4, 4, 'Busca', 84);
+
+INSERT INTO insight_comportamento (id, tipo, titulo, descricao) VALUES
+(1, 'red', '"Cursos Gratuitos" tem 94% de intensidade', 'Principal ponto de engajamento. Considere ampliar a oferta visível na landing.'),
+(2, 'yellow', 'Busca com 84% - padrão de intenção', 'Alta intenção de busca indica necessidade de melhoria no mecanismo de discovery.'),
+(3, 'blue', 'Área editorial com <25% de cliques', 'Conteúdo editorial tem baixo engajamento relativo. Revisar posicionamento e títulos.');
