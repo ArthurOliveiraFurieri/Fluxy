@@ -112,7 +112,7 @@ INSERT INTO heatmap_bloco (id, secao, posicao, nome, intensidade) VALUES
 (27, 'Acesso Rápido', 9, '', 'bg-baixo');
 
 INSERT INTO elemento_clicado (id, rank, nome, percentual) VALUES
-(1, 1, 'BACKEND FUNCIONANDO', 94),
+(1, 1, 'Cursos Gratuitos', 94),
 (2, 2, 'Cursos', 92),
 (3, 3, 'Portal MEI', 88),
 (4, 4, 'Busca', 84);

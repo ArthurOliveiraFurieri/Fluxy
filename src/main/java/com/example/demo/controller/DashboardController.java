@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.service.HeatmapService;
+import com.example.demo.service.JornadaService;
 import com.example.demo.service.NavService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,10 +12,16 @@ public class DashboardController {
 
     private final NavService navService;
     private final HeatmapService heatmapService;
+    private final JornadaService jornadaService;
 
-    public DashboardController(NavService navService, HeatmapService heatmapService) {
+    public DashboardController(
+            NavService navService,
+            HeatmapService heatmapService,
+            JornadaService jornadaService
+    ) {
         this.navService = navService;
         this.heatmapService = heatmapService;
+        this.jornadaService = jornadaService;
     }
 
     @GetMapping("/")
@@ -33,7 +40,16 @@ public class DashboardController {
 
     @GetMapping("/jornada")
     public String jornadaUsuario(Model model) {
+        model.addAttribute("pageTitle", "Jornada do Usuário");
+        model.addAttribute("pageSubtitle", "Análise de funil, fluxo e eventos críticos na jornada");
         model.addAttribute("activePage", "jornada");
+        model.addAttribute("navItems", navService.getNavItemsForPage("jornada"));
+
+        model.addAttribute("funil", jornadaService.getFunil());
+        model.addAttribute("eventosCriticos", jornadaService.getEventos());
+        model.addAttribute("abandonoPaginas", jornadaService.getAbandono());
+        model.addAttribute("microFeedbacks", jornadaService.getFeedback());
+
         return "jornada-usuario";
     }
 
