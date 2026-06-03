@@ -1,115 +1,359 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Heatmaps e Comportamento - SEBRAE</title>
+    
+    <link rel="stylesheet" th:href="@{/css/layout.css}"/>
+    <link rel="stylesheet" th:href="@{/css/components.css}"/>
+    
     <link rel="stylesheet" th:href="@{/css/heatmap-comportamento.css}">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<div class="main-card">
-    <div class="header-row">
-        <div>
-            <h1 th:text="${pageTitle}">Heatmaps e Comportamento</h1>
-            <p th:text="${pageSubtitle}">Análise detalhada de cliques e profundidade de scroll</p>
-        </div>
-        <div class="date-badge">📅 Últimos 07 dias</div>
-    </div>
+<div class="app-layout">
 
-    <div class="tabs">
-        <button class="tab-btn tab-active">Mapas de Cliques</button>
-        <button class="tab-btn">Profundidade de Scroll</button>
-    </div>
+    <th:block th:replace="~{fragments/sidebar :: sidebar}"></th:block>
 
-    <div class="heatmap-container">
-        <div class="heatmap-header">
-            <span class="status-dot"></span>
-            <strong>Mapa de Calor - Página Inicial SEBRAE</strong>
-        </div>
+    <div class="main-wrapper">
 
-        <div class="grid-row">
-            <div class="row-label">Navegação</div>
-            <div class="blocks-area">
-                <div class="block"
-                     th:each="bloco : ${blocosNavegacao}"
-                     th:classappend="${bloco.intensidade}"
-                     th:text="${bloco.nome}">
+        <th:block th:replace="~{fragments/header :: header(
+            ${pageTitle} ?: 'Heatmaps e Comportamento',
+            ${pageSubtitle} ?: 'Mapa de calor de interações, cliques e profundidade de scroll'
+        )}"></th:block>
+
+        <main class="main-content">
+            
+            <div class="main-card">
+                
+                <div class="controls-row">
+                    <div class="tabs-wrapper">
+                        <div class="tabs">
+                            <button class="tab-btn tab-active" id="tab-cliques">Mapas de Cliques</button>
+                            <button class="tab-btn" id="tab-scroll">Profundidade de Scroll</button>
+                        </div>
+                        <label class="label-toggle" id="label-rotulos-wrapper">
+                            <input type="checkbox" checked class="toggle-checkbox">
+                            <span>Mostrar rótulos</span>
+                        </label>
+                    </div>
+                    <div class="date-badge">📅 Últimos 07 dias</div>
                 </div>
-            </div>
-        </div>
 
-        <div class="grid-row">
-            <div class="row-label">Hero</div>
-            <div class="blocks-area">
-                <div class="block"
-                     th:each="bloco : ${blocosHero}"
-                     th:classappend="${bloco.intensidade}"
-                     th:text="${bloco.nome}">
-                </div>
-            </div>
-        </div>
+                <div id="view-cliques" class="tab-view-content">
+                    <div class="heatmap-container">
+                        <div class="heatmap-and-mousebox">
+                            
+                            <div class="heatmap-grid-area">
+                                <div class="heatmap-header">
+                                    <span class="status-dot"></span>
+                                    <strong>Mapa de Calor - Página Inicial SEBRAE</strong>
+                                </div>
+                                <span class="heatmap-subtitle">Densidade de cliques por zona da página</span>
 
-        <div class="grid-row">
-            <div class="row-label">Acesso Rápido</div>
-            <div class="blocks-area">
-                <div class="block"
-                     th:each="bloco : ${blocosAcessoRapido}"
-                     th:classappend="${bloco.intensidade}"
-                     th:text="${bloco.nome}">
-                </div>
-            </div>
-        </div>
-    </div>
+                                <div class="grid-header-row">
+                                    <div class="col-label-secao">Seção</div>
+                                    <div class="col-label-largura">← &nbsp; Largura da página &nbsp; →</div>
+                                </div>
+                                
+                                <div class="grid-row">
+                                    <div class="row-label">Navegação</div>
+                                    <div class="blocks-area">
+                                        <div class="block bg-baixo">Logo SEBRAE</div>
+                                        <div class="block bg-baixo"></div>
+                                        <div class="block bg-empty"></div>
+                                        <div class="block bg-alto">Cursos</div>
+                                        <div class="block bg-alto">Ferramentas</div>
+                                        <div class="block bg-medio">Consultorias</div>
+                                        <div class="block bg-medio">SEBRAE-SP</div>
+                                        <div class="block bg-empty"></div>
+                                        <div class="block bg-medio">Busca</div>
+                                        <div class="block bg-alto"></div>
+                                    </div>
+                                </div>
 
-    <div class="bottom-section">
+                                <div class="grid-row">
+                                    <div class="row-label">Hero</div>
+                                    <div class="blocks-area">
+                                        <div class="block bg-empty"></div>
+                                        <div class="block bg-empty"></div>
+                                        <div class="block bg-empty"></div>
+                                        <div class="block bg-baixo">CTA Principal</div>
+                                        <div class="block bg-medio"></div>
+                                        <div class="block bg-medio"></div>
+                                        <div class="block bg-muito-baixo">Imagem Hero</div>
+                                        <div class="block bg-muito-baixo"></div>
+                                        <div class="block bg-muito-baixo"></div>
+                                        <div class="block bg-muito-baixo"></div>
+                                    </div>
+                                </div>
 
-        <div class="sub-card">
-            <div class="card-header-group">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2.5">
-                    <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
-                </svg>
-                <h3>Elementos Mais Clicados</h3>
-            </div>
+                                <div class="grid-row">
+                                    <div class="row-label">Acesso Rápido</div>
+                                    <div class="blocks-area">
+                                        <div class="block bg-medio">Portal MEI</div>
+                                        <div class="block bg-alto"></div>
+                                        <div class="block bg-alto">Cursos Gratuitos</div>
+                                        <div class="block bg-alto"></div>
+                                        <div class="block bg-baixo">Capital de Giro</div>
+                                        <div class="block bg-medio"></div>
+                                        <div class="block bg-baixo">Consultoria</div>
+                                        <div class="block bg-baixo"></div>
+                                        <div class="block bg-baixo">Eventos</div>
+                                        <div class="block bg-baixo"></div>
+                                    </div>
+                                </div>
 
-            <div class="ranking-list">
-                <div class="bar-row" th:each="elemento : ${elementosMaisClicados}">
-                    <div class="rank-number" th:text="${elemento.rank}">1</div>
+                                <div class="grid-row">
+                                    <div class="row-label">Conteúdo</div>
+                                    <div class="blocks-area">
+                                        <div class="block bg-muito-baixo">Notícia Destaque</div>
+                                        <div class="block bg-baixo"></div>
+                                        <div class="block bg-baixo"></div>
+                                        <div class="block bg-muito-baixo">Artigo</div>
+                                        <div class="block bg-baixo"></div>
+                                        <div class="block bg-muito-baixo">Artigo</div>
+                                        <div class="block bg-muito-baixo"></div>
+                                        <div class="block bg-muito-baixo">Notícia</div>
+                                        <div class="block bg-muito-baixo"></div>
+                                        <div class="block bg-muito-baixo"></div>
+                                    </div>
+                                </div>
 
-                    <div class="bar-info">
-                        <div class="bar-label-group">
-                            <span class="bar-name" th:text="${elemento.nome}">Cursos Gratuitos</span>
-                            <span class="bar-percent" th:text="${elemento.percentual + '%'}">94%</span>
+                                <div class="grid-row">
+                                    <div class="row-label">Banner</div>
+                                    <div class="blocks-area">
+                                        <div class="block bg-muito-baixo">Banner SEBRAETEC</div>
+                                        <div class="block bg-muito-baixo"></div>
+                                        <div class="block bg-muito-baixo"></div>
+                                        <div class="block bg-muito-baixo"></div>
+                                        <div class="block bg-baixo"></div>
+                                        <div class="block bg-medio"></div>
+                                        <div class="block bg-baixo"></div>
+                                        <div class="block bg-muito-baixo"></div>
+                                        <div class="block bg-muito-baixo"></div>
+                                        <div class="block bg-muito-baixo"></div>
+                                    </div>
+                                </div>
+
+                                <div class="grid-row">
+                                    <div class="row-label">Rodapé</div>
+                                    <div class="blocks-area">
+                                        <div class="block bg-muito-baixo">Links Úteis</div>
+                                        <div class="block bg-muito-baixo"></div>
+                                        <div class="block bg-muito-baixo"></div>
+                                        <div class="block bg-muito-baixo"></div>
+                                        <div class="block bg-muito-baixo"></div>
+                                        <div class="block bg-muito-baixo"></div>
+                                        <div class="block bg-muito-baixo"></div>
+                                        <div class="block bg-muito-baixo">Redes Sociais</div>
+                                        <div class="block bg-muito-baixo"></div>
+                                        <div class="block bg-muito-baixo"></div>
+                                    </div>
+                                </div>
+
+                                <div class="heatmap-legend">
+                                    <div class="legend-item"><span class="legend-dot dot-muito-baixo"></span> Muito Baixo</div>
+                                    <div class="legend-item"><span class="legend-dot dot-baixo"></span> Baixo</div>
+                                    <div class="legend-item"><span class="legend-dot dot-medio"></span> Médio</div>
+                                    <div class="legend-item"><span class="legend-dot dot-alto"></span> Alto</div>
+                                    <div class="legend-item"><span class="legend-dot dot-muito-alto"></span> Muito Alto</div>
+                                </div>
+                            </div>
+
+                            <div class="mousebox-area">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 12 3.76 10.3a.5.5 0 0 0 .94-.16l2.22-7.64 7.64-2.22a.5.5 0 0 0 .16-.94L13 8v0z"/><path d="m8 8-4-4"/><path d="M12 4V2"/><path d="M4 12H2"/><path d="m8 16-4 4"/></svg>
+                                <p class="mousebox-text">Passe o mouse sobre o heatmap<br/>para ver detalhes</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bottom-section">
+                        <div class="sub-card">
+                            <div class="card-header-group">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2.5"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+                                <h3>Elementos Mais Clicados</h3>
+                            </div>
+                            <div class="ranking-list">
+                                <div class="bar-row">
+                                    <div class="rank-number">1</div>
+                                    <div class="bar-info">
+                                        <div class="bar-label-group"><span class="bar-name">Cursos Gratuitos</span><span class="bar-percent">94%</span></div>
+                                        <div class="bar-container"><div class="bar-fill fill-muito-alto" style="width: 94%;"></div></div>
+                                    </div>
+                                </div>
+                                <div class="bar-row">
+                                    <div class="rank-number">2</div>
+                                    <div class="bar-info">
+                                        <div class="bar-label-group"><span class="bar-name">Cursos</span><span class="bar-percent">92%</span></div>
+                                        <div class="bar-container"><div class="bar-fill fill-muito-alto" style="width: 92%;"></div></div>
+                                    </div>
+                                </div>
+                                <div class="bar-row">
+                                    <div class="rank-number">3</div>
+                                    <div class="bar-info">
+                                        <div class="bar-label-group"><span class="bar-name">Portal MEI</span><span class="bar-percent">88%</span></div>
+                                        <div class="bar-container"><div class="bar-fill fill-alto" style="width: 88%;"></div></div>
+                                    </div>
+                                </div>
+                                <div class="bar-row">
+                                    <div class="rank-number">4</div>
+                                    <div class="bar-info">
+                                        <div class="bar-label-group"><span class="bar-name">Busca</span><span class="bar-percent">84%</span></div>
+                                        <div class="bar-container"><div class="bar-fill fill-alto" style="width: 84%;"></div></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="bar-container">
-                            <div class="bar-fill bg-muito-alto"
-                                 th:style="'width: ' + ${elemento.percentual} + '%;'">
+                        <div class="sub-card">
+                            <div class="card-header-group">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                                <h3>Insights de Comportamento</h3>
+                            </div>
+                            <div class="insight-box insight-red">
+                                <strong>"Cursos Gratuitos" tem 94% de intensidade</strong>
+                                <small>Principal ponto de engajamento. Considere ampliar a oferta visível na landing.</small>
+                            </div>
+                            <div class="insight-box insight-yellow">
+                                <strong>Busca com 84% - padrão de intenção</strong>
+                                <small>Alta intenção de busca indica necessidade de melhoria no mecanismo de discovery.</small>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="sub-card">
-            <div class="card-header-group">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2.5">
-                    <circle cx="12" cy="12" r="10"/>
-                    <path d="M12 16v-4M12 8h.01"/>
-                </svg>
-                <h3>Insights de Comportamento</h3>
+
+                <div id="view-scroll" class="tab-view-content hide-view">
+                    <div class="scroll-layout-grid">
+                        
+                        <div class="sub-card">
+                            <div class="card-header-group">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+                                <h3>Profundidade de Scroll</h3>
+                            </div>
+                            <span class="heatmap-subtitle" style="margin-top: -15px;">% de usuários que chegam a cada profundidade</span>
+                            
+                            <div class="v-chart-wrapper">
+                                <div class="y-axis">
+                                    <span>110%</span>
+                                    <span>60%</span>
+                                    <span>30%</span>
+                                    <span>0%</span>
+                                </div>
+                                <div class="chart-area-container">
+                                    <div class="chart-grid-lines">
+                                        <div class="grid-line"></div>
+                                        <div class="grid-line"></div>
+                                        <div class="grid-line"></div>
+                                        <div class="grid-line-base"></div>
+                                    </div>
+                                    <div class="v-bars-flex">
+                                        <div class="v-bar-group">
+                                            <div class="v-bar fill-blue" style="height: 100%;"></div>
+                                            <span class="x-axis-label">0-25%</span>
+                                        </div>
+                                        <div class="v-bar-group">
+                                            <div class="v-bar fill-green" style="height: 68%;"></div>
+                                            <span class="x-axis-label">25-50%</span>
+                                        </div>
+                                        <div class="v-bar-group">
+                                            <div class="v-bar fill-orange" style="height: 41%;"></div>
+                                            <span class="x-axis-label">50-75%</span>
+                                        </div>
+                                        <div class="v-bar-group">
+                                            <div class="v-bar fill-red" style="height: 22%;"></div>
+                                            <span class="x-axis-label">75-100%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="sub-card">
+                            <div class="card-header-group">
+                                <h3>Análise de Scroll</h3>
+                            </div>
+                            
+                            <div class="scroll-analysis-list">
+                                <div class="analysis-row">
+                                    <div class="analysis-headers">
+                                        <span class="analysis-title">Topo da página</span>
+                                        <span class="analysis-val">100%</span>
+                                    </div>
+                                    <div class="analysis-subtitle">0-25% da página</div>
+                                    <div class="analysis-progress-bg"><div class="analysis-progress-fill fill-blue" style="width: 100%;"></div></div>
+                                </div>
+                                <div class="analysis-row">
+                                    <div class="analysis-headers">
+                                        <span class="analysis-title">Conteúdo principal</span>
+                                        <span class="analysis-val">68%</span>
+                                    </div>
+                                    <div class="analysis-subtitle">25-50% da página</div>
+                                    <div class="analysis-progress-bg"><div class="analysis-progress-fill fill-green" style="width: 68%;"></div></div>
+                                </div>
+                                <div class="analysis-row">
+                                    <div class="analysis-headers">
+                                        <span class="analysis-title">Seção secundária</span>
+                                        <span class="analysis-val">41%</span>
+                                    </div>
+                                    <div class="analysis-subtitle">50-75% da página</div>
+                                    <div class="analysis-progress-bg"><div class="analysis-progress-fill fill-orange" style="width: 41%;"></div></div>
+                                </div>
+                                <div class="analysis-row">
+                                    <div class="analysis-headers">
+                                        <span class="analysis-title">Rodapé</span>
+                                        <span class="analysis-val">22%</span>
+                                    </div>
+                                    <div class="analysis-subtitle">75-100% da página</div>
+                                    <div class="analysis-progress-bg"><div class="analysis-progress-fill fill-red" style="width: 22%;"></div></div>
+                                </div>
+                            </div>
+
+                            <div class="scroll-callout-box">
+                                <span><strong>78% dos usuários</strong> não chegam à metade da página. Conteúdo crítico deve estar na parte superior (acima do fold).</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
 
-            <div class="insight-box"
-                 th:each="insight : ${insights}"
-                 th:classappend="'insight-' + ${insight.tipo}">
-                <strong th:text="${insight.titulo}">Título do insight</strong>
-                <small th:text="${insight.descricao}">Descrição do insight</small>
-            </div>
-        </div>
+        </main>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const tabCliques = document.getElementById("tab-cliques");
+        const tabScroll = document.getElementById("tab-scroll");
+        const viewCliques = document.getElementById("view-cliques");
+        const viewScroll = document.getElementById("view-scroll");
+        const labelRotulos = document.getElementById("label-rotulos-wrapper");
+
+        tabCliques.addEventListener("click", function() {
+            tabCliques.classList.add("tab-active");
+            tabScroll.classList.remove("tab-active");
+            
+            viewCliques.classList.remove("hide-view");
+            viewScroll.classList.add("hide-view");
+            labelRotulos.style.opacity = "1";
+        });
+
+        tabScroll.addEventListener("click", function() {
+            tabScroll.classList.add("tab-active");
+            tabCliques.classList.remove("tab-active");
+            
+            viewScroll.classList.remove("hide-view");
+            viewCliques.classList.add("hide-view");
+            labelRotulos.style.opacity = "0";
+        });
+    });
+</script>
 
 </body>
 </html>
