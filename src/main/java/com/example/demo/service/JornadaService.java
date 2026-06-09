@@ -16,51 +16,67 @@ public class JornadaService {
     private final MicroFeedbackRepository feedbackRepo;
     private final Random random = new Random();
 
+    private List<EtapaFunil> funilCache;
+    private List<EventoCritico> eventosCache;
+    private List<AbandonoPagina> abandonoCache;
+    private List<MicroFeedback> feedbackCache;
+
     public JornadaService(EtapaFunilRepository etapaRepo,
                           EventoCriticoRepository eventoRepo,
                           AbandonoPaginaRepository abandonoRepo,
                           MicroFeedbackRepository feedbackRepo) {
-        this.etapaRepo   = etapaRepo;
-        this.eventoRepo  = eventoRepo;
-        this.abandonoRepo= abandonoRepo;
-        this.feedbackRepo= feedbackRepo;
+        this.etapaRepo    = etapaRepo;
+        this.eventoRepo   = eventoRepo;
+        this.abandonoRepo = abandonoRepo;
+        this.feedbackRepo = feedbackRepo;
+    }
+
+    public void regenerar() {
+        funilCache = etapaRepo.findAll();
+        funilCache.forEach(e -> {
+            int variacao = random.nextInt(5) - 2;
+            e.setPercentual(Math.max(1, Math.min(100, e.getPercentual() + variacao)));
+            int varUsers = (int)(e.getUsuarios() * (random.nextDouble() * 0.04 - 0.02));
+            e.setUsuarios(e.getUsuarios() + varUsers);
+        });
+
+        eventosCache = eventoRepo.findAll();
+        eventosCache.forEach(e -> {
+            int variacao = (int)(e.getUsuariosAfetados() * (random.nextDouble() * 0.04 - 0.02));
+            e.setUsuariosAfetados(Math.max(0, e.getUsuariosAfetados() + variacao));
+        });
+
+        abandonoCache = abandonoRepo.findAll();
+        abandonoCache.forEach(p -> {
+            int variacao = random.nextInt(5) - 2;
+            p.setPercentual(Math.max(1, Math.min(99, p.getPercentual() + variacao)));
+        });
+
+        feedbackCache = feedbackRepo.findAll();
+        feedbackCache.forEach(f -> {
+            f.setPositivo(Math.max(1, Math.min(99, f.getPositivo() + random.nextInt(5) - 2)));
+            f.setNegativo(Math.max(1, Math.min(99, f.getNegativo() + random.nextInt(5) - 2)));
+            f.setNeutro(Math.max(1, Math.min(99, f.getNeutro() + random.nextInt(5) - 2)));
+        });
     }
 
     public List<EtapaFunil> getFunil() {
-        List<EtapaFunil> etapas = etapaRepo.findAll();
-        etapas.forEach(e -> {
-            int variacao = random.nextInt(5) - 2; 
-            e.setUsuarios(e.getUsuarios() + variacao * 100);
-        });
-        return etapas;
+        if (funilCache == null) regenerar();
+        return funilCache;
     }
 
     public List<EventoCritico> getEventos() {
-        List<EventoCritico> eventos = eventoRepo.findAll();
-        eventos.forEach(e -> {
-            int variacao = random.nextInt(200) - 100; 
-            e.setUsuariosAfetados(e.getUsuariosAfetados() + variacao);
-        });
-        return eventos;
+        if (eventosCache == null) regenerar();
+        return eventosCache;
     }
 
     public List<AbandonoPagina> getAbandono() {
-        List<AbandonoPagina> paginas = abandonoRepo.findAll();
-        paginas.forEach(p -> {
-            int variacao = random.nextInt(3) - 1; 
-            int novo = p.getPercentual() + variacao;
-            p.setPercentual(Math.max(1, Math.min(99, novo)));
-        });
-        return paginas;
+        if (abandonoCache == null) regenerar();
+        return abandonoCache;
     }
 
     public List<MicroFeedback> getFeedback() {
-        List<MicroFeedback> feedbacks = feedbackRepo.findAll();
-        feedbacks.forEach(f -> {
-            int variacao = random.nextInt(3) - 1;
-            f.setPositivo(Math.max(1, f.getPositivo() + variacao));
-            f.setNegativo(Math.max(1, f.getNegativo() + variacao));
-        });
-        return feedbacks;
+        if (feedbackCache == null) regenerar();
+        return feedbackCache;
     }
 }

@@ -31,65 +31,12 @@
                         <span class="funnel-badge">Conversão final: 6.6%</span>
                     </div>
 
-                    <div class="funnel-steps" id="funilSteps">
-
-                        <div class="funnel-step" th:each="etapa : ${funil}">
-                            <div class="funnel-step__row">
-                                <div class="funnel-step__num"
-                                     th:style="'background:' + ${etapa.cor} + ';'"
-                                     th:text="${etapa.ordem}">
-                                    1
-                                </div>
-
-                                <div class="funnel-step__bar-wrap">
-                                    <div class="funnel-step__bar"
-                                         th:style="'background:' + ${etapa.cor} + '; width:' + ${etapa.percentual} + '%;'">
-                                        <span class="bar-label" th:text="${etapa.nome}">Entrada no Site</span>
-                                        <span class="bar-pct" th:text="${etapa.percentual + '%'}">100%</span>
-                                    </div>
-                                </div>
-
-                                <div class="funnel-step__users">
-                                    <span th:text="${etapa.usuarios}">142500</span>
-                                    <small>usuários</small>
-                                </div>
-                            </div>
-
-                            <div class="funnel-step__drop"
-                                 th:if="${etapa.dropPercentual > 0}"
-                                 th:text="'↓ -' + ${etapa.dropPercentual} + '% saíram (' + ${etapa.dropUsuarios} + ' usuários)'">
-                                ↓ -31% saíram
-                            </div>
-                        </div>
-
-                    </div>
+                    <div class="funnel-steps" id="funilSteps"></div>
                 </div>
 
                 <div class="card">
                     <div class="chart-card__title">Eventos Críticos</div>
-
-                    <div class="events-list" id="eventosList">
-
-                        <div class="event-item"
-                             th:each="evento : ${eventosCriticos}"
-                             th:classappend="'ev-' + ${evento.severidade}">
-                            <div class="event-item__icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-                                </svg>
-                            </div>
-
-                            <div class="event-item__body">
-                                <div class="event-item__name" th:text="${evento.nome}">Cadastro Avançado</div>
-                                <div class="event-item__desc" th:text="${evento.descricao}">Alto abandono pós formulário</div>
-                                <div class="event-item__count"
-                                     th:text="${evento.usuariosAfetados + ' usuários afetados'}">
-                                    4820 usuários afetados
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
+                    <div class="events-list" id="eventosList"></div>
                 </div>
 
             </div>
@@ -99,24 +46,7 @@
                 <div class="card">
                     <div class="chart-card__title">Taxa de Abandono por Página</div>
                     <div class="chart-card__sub">Páginas com maior perda de usuários no fluxo</div>
-
-                    <div class="abandon-list" id="abandonoList">
-
-                        <div class="abandon-row" th:each="pagina : ${abandonoPaginas}">
-                            <div class="abandon-row__header">
-                                <span class="abandon-row__label" th:text="${pagina.nome}">Cadastro Avançado</span>
-                                <span class="abandon-row__pct" th:text="${pagina.percentual + '%'}">82%</span>
-                            </div>
-
-                            <div class="abandon-row__track">
-                                <div class="abandon-row__fill"
-                                     th:style="'width:' + ${pagina.percentual} + '%; background:' + ${pagina.cor} + ';'">
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
+                    <div class="abandon-list" id="abandonoList"></div>
                     <div class="abandon-axis">
                         <span>0%</span><span>20%</span><span>40%</span><span>60%</span><span>80%</span>
                     </div>
@@ -126,35 +56,7 @@
                     <div class="chart-card__title">Micro-feedback por Etapa</div>
                     <div class="chart-card__sub">Sentimento implícito capturado ao longo da jornada</div>
 
-                    <div class="mf-list" id="feedbackList">
-
-                        <div class="mf-row" th:each="feedback : ${microFeedbacks}">
-                            <div class="mf-row__header">
-                                <span class="mf-row__label" th:text="${feedback.etapa}">Entrada</span>
-                            </div>
-
-                            <div class="mf-row__track">
-                                <div class="mf-row__seg"
-                                     th:style="'width:' + ${feedback.positivo} + '%; background:#10b981;'"
-                                     th:text="${feedback.positivo + '%'}">
-                                    82%
-                                </div>
-
-                                <div class="mf-row__seg"
-                                     th:style="'width:' + ${feedback.negativo} + '%; background:#ef4444;'"
-                                     th:text="${feedback.negativo + '%'}">
-                                    12%
-                                </div>
-
-                                <div class="mf-row__seg"
-                                     th:style="'width:' + ${feedback.neutro} + '%; background:#f59e0b;'"
-                                     th:text="${feedback.neutro + '%'}">
-                                    6%
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
+                    <div class="mf-list" id="feedbackList"></div>
 
                     <div class="mf-legend">
                         <div class="mf-legend__item">
@@ -196,5 +98,6 @@
 </div>
 
 <script th:src="@{/js/layout.js}"></script>
+<script th:src="@{/js/jornada-usuario.js}"></script>
 </body>
 </html>

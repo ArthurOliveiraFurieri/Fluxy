@@ -73,4 +73,13 @@ public class ApiController {
     // ── Feedback / NPS ───────────────────────────────
     @GetMapping("/nps")
     public Object getNps() { return feedbackService.getNps(); }
+
+    @PostMapping("/regenerar")
+    public Object regenerar() {
+        jornadaService.regenerar();
+        metricasService.regenerar();
+        heatmapService.regenerar();
+        feedbackService.regenerar();
+        return java.util.Map.of("status", "ok");
+    }
 }

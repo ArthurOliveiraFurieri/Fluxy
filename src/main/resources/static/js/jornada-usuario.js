@@ -1,22 +1,16 @@
-/* jornada-usuario.js — dados dinâmicos da Jornada do Usuário */
+/* jornada-usuario.js — dados carregados uma vez por requisição */
 
 document.addEventListener('DOMContentLoaded', function () {
-
-    carregarFunil();
-    carregarEventos();
-    carregarAbandono();
-    carregarFeedback();
-
-    setInterval(function () {
-        carregarFunil();
-        carregarEventos();
-        carregarAbandono();
-        carregarFeedback();
-    }, 30000);
-
+    renderFunil();
+    renderEventos();
+    renderAbandono();
+    renderFeedback();
 });
 
-function carregarFunil() {
+/* ════════════════════════════════════════════════════════
+   FUNIL
+   ════════════════════════════════════════════════════════ */
+function renderFunil() {
     fetch('/api/funil')
         .then(r => r.json())
         .then(etapas => {
@@ -27,7 +21,6 @@ function carregarFunil() {
 
             container.innerHTML = etapas.map((e, i) => {
                 const isUltima = i === etapas.length - 1;
-                const usuarios = formatarNumero(e.usuarios);
                 const drop = !isUltima
                     ? `<div class="funnel-step__drop">↓ -${e.dropPercentual}% saíram (${formatarNumero(e.dropUsuarios)} usuários)</div>`
                     : '';
@@ -42,43 +35,44 @@ function carregarFunil() {
                                     <span class="bar-pct">${e.percentual}%</span>
                                 </div>
                             </div>
-                            <div class="funnel-step__users">${usuarios}<small>usuários</small></div>
+                            <div class="funnel-step__users">${formatarNumero(e.usuarios)}<small>usuários</small></div>
                         </div>
                         ${drop}
                     </div>
                 `;
             }).join('');
         })
-        .catch(err => console.error('Erro ao carregar funil:', err));
+        .catch(err => console.error('Erro funil:', err));
 }
 
-function carregarEventos() {
+/* ════════════════════════════════════════════════════════
+   EVENTOS
+   ════════════════════════════════════════════════════════ */
+function renderEventos() {
     fetch('/api/eventos')
         .then(r => r.json())
         .then(eventos => {
             const container = document.getElementById('eventosList');
             if (!container) return;
 
-            container.innerHTML = eventos.map(e => {
-                const icon = getEventoIcon(e.severidade);
-                const afetados = formatarNumero(e.usuariosAfetados);
-
-                return `
-                    <div class="event-item ev-${e.severidade}">
-                        <div class="event-item__icon">${icon}</div>
-                        <div class="event-item__body">
-                            <div class="event-item__name">${e.nome}</div>
-                            <div class="event-item__desc">${e.descricao}</div>
-                            <div class="event-item__count">${afetados} usuários afetados</div>
-                        </div>
+            container.innerHTML = eventos.map(e => `
+                <div class="event-item ev-${e.severidade}">
+                    <div class="event-item__icon">${getEventoIcon(e.severidade)}</div>
+                    <div class="event-item__body">
+                        <div class="event-item__name">${e.nome}</div>
+                        <div class="event-item__desc">${e.descricao}</div>
+                        <div class="event-item__count">${formatarNumero(e.usuariosAfetados)} usuários afetados</div>
                     </div>
-                `;
-            }).join('');
+                </div>
+            `).join('');
         })
-        .catch(err => console.error('Erro ao carregar eventos:', err));
+        .catch(err => console.error('Erro eventos:', err));
 }
 
-function carregarAbandono() {
+/* ════════════════════════════════════════════════════════
+   ABANDONO
+   ════════════════════════════════════════════════════════ */
+function renderAbandono() {
     fetch('/api/abandono')
         .then(r => r.json())
         .then(paginas => {
@@ -97,10 +91,13 @@ function carregarAbandono() {
                 </div>
             `).join('');
         })
-        .catch(err => console.error('Erro ao carregar abandono:', err));
+        .catch(err => console.error('Erro abandono:', err));
 }
 
-function carregarFeedback() {
+/* ════════════════════════════════════════════════════════
+   FEEDBACK
+   ════════════════════════════════════════════════════════ */
+function renderFeedback() {
     fetch('/api/feedback')
         .then(r => r.json())
         .then(feedbacks => {
@@ -120,9 +117,12 @@ function carregarFeedback() {
                 </div>
             `).join('');
         })
-        .catch(err => console.error('Erro ao carregar feedback:', err));
+        .catch(err => console.error('Erro feedback:', err));
 }
 
+/* ════════════════════════════════════════════════════════
+   UTILITÁRIOS
+   ════════════════════════════════════════════════════════ */
 function formatarNumero(n) {
     if (n >= 1000) return (n / 1000).toFixed(1) + 'k';
     return n.toString();
@@ -130,20 +130,25 @@ function formatarNumero(n) {
 
 function getEventoIcon(severidade) {
     const icons = {
-        red: `<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
-                <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
-              </svg>`,
-        yellow: `<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
-                <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
-              </svg>`,
-        blue: `<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-              </svg>`,
-        green: `<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
-                <polyline points="20 6 9 17 4 12"/>
-              </svg>`,
+        red: `<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
+        yellow: `<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
+        blue: `<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`,
+        green: `<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>`,
     };
     return icons[severidade] || icons.blue;
+}
+
+/* Botão de atualizar: regenera os dados e recarrega */
+const btnRefresh = document.getElementById('btnRefresh');
+if (btnRefresh) {
+    btnRefresh.addEventListener('click', function () {
+        fetch('/api/regenerar', { method: 'POST' })
+            .then(() => {
+                renderFunil();
+                renderEventos();
+                renderAbandono();
+                renderFeedback();
+            })
+            .catch(err => console.error('Erro ao regenerar:', err));
+    });
 }
