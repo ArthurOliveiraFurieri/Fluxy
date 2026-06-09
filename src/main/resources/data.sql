@@ -121,3 +121,10 @@ INSERT INTO insight_comportamento (id, tipo, titulo, descricao) VALUES
 (1, 'red', '"Cursos Gratuitos" tem 94% de intensidade', 'Principal ponto de engajamento. Considere ampliar a oferta visível na landing.'),
 (2, 'yellow', 'Busca com 84% - padrão de intenção', 'Alta intenção de busca indica necessidade de melhoria no mecanismo de discovery.'),
 (3, 'blue', 'Área editorial com <25% de cliques', 'Conteúdo editorial tem baixo engajamento relativo. Revisar posicionamento e títulos.');
+
+-- ── NPS Evolução ────────────────────────────────
+INSERT INTO nps_evolucao (id, mes, valor) VALUES
+(1, 'Jan', 54),
+(2, 'Fev', 61),
+(3, 'Mar', 67),
+(4, 'Abr', 72);

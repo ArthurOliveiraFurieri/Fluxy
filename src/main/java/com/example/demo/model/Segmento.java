@@ -10,7 +10,7 @@ public class Segmento {
     private Long id;
     private String nome;
     private String cor;
-    private int pct;
+    private String pct;
     private int engajamento;
     private int retorno;
     private int sessoes;
@@ -21,8 +21,8 @@ public class Segmento {
     public void setNome(String nome) { this.nome = nome; }
     public String getCor() { return cor; }
     public void setCor(String cor) { this.cor = cor; }
-    public int getPct() { return pct; }
-    public void setPct(int pct) { this.pct = pct; }
+    public String getPct() { return pct; }
+    public void setPct(String pct) { this.pct = pct; }
     public int getEngajamento() { return engajamento; }
     public void setEngajamento(int engajamento) { this.engajamento = engajamento; }
     public int getRetorno() { return retorno; }
