@@ -74,7 +74,7 @@ INSERT INTO radar_segmento (id, label, cor, val1, val2, val3, val4, val5, val6) 
 
 -- ── Segmentos ───────────────────────────────────
 INSERT INTO segmento (id, nome, cor, pct, engajamento, retorno, sessoes) VALUES
-(1, 'Empreendedores',    '#6366f1', 38, 71, 45, 54150),
+(1, 'Empreendedores', '#6366f1', 38, 71, 45, 54150),
 (2, 'MEI',               '#22c55e', 27, 74, 52, 38475),
 (3, 'Estudantes',        '#a78bfa', 18, 48, 22,  7125),
 (4, 'Emp. Consolidados', '#f59e0b', 12, 62, 33, 25650),
