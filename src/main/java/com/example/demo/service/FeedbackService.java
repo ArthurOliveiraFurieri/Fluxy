@@ -2,7 +2,6 @@ package com.example.demo.service;
 
 import com.example.demo.model.NpsEvolucao;
 import com.example.demo.repository.NpsEvolucaoRepository;
-import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,11 +19,6 @@ public class FeedbackService {
         this.npsRepo = npsRepo;
     }
 
-    @PostConstruct
-    public void init() {
-        regenerar();
-    }
-
     public void regenerar() {
         npsCache = npsRepo.findAll();
         npsCache.forEach(n -> {
@@ -34,6 +28,7 @@ public class FeedbackService {
     }
 
     public List<NpsEvolucao> getNps() {
+        if (npsCache == null) regenerar();
         return npsCache;
     }
 }
