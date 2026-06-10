@@ -1,10 +1,19 @@
 document.addEventListener('DOMContentLoaded', function () {
     renderSegmentos();
+
+    const btnRefresh = document.getElementById('btnRefresh');
+    if (btnRefresh) {
+        btnRefresh.addEventListener('click', function () {
+            fetch('/api/regenerar', { method: 'POST' })
+                .then(() => renderSegmentos())
+                .catch(err => console.error('Erro ao regenerar:', err));
+        });
+    }
 });
 
 function renderSegmentos() {
 
-    fetch('/api/segmentos')
+    fetch('/api/metricas/segmentos')
         .then(response => response.json())
         .then(segmentos => {
 

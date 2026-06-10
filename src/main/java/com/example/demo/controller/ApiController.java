@@ -4,7 +4,6 @@ import com.example.demo.service.JornadaService;
 import com.example.demo.service.MetricasService;
 import com.example.demo.service.HeatmapService;
 import com.example.demo.service.FeedbackService;
-import com.example.demo.service.SegmentosService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,122 +14,73 @@ public class ApiController {
     private final MetricasService metricasService;
     private final HeatmapService heatmapService;
     private final FeedbackService feedbackService;
-    private final SegmentosService segmentosService;
 
     public ApiController(JornadaService jornadaService,
                          MetricasService metricasService,
                          HeatmapService heatmapService,
-                         FeedbackService feedbackService,
-                         SegmentosService segmentosService) {
-
-        this.jornadaService = jornadaService;
+                         FeedbackService feedbackService) {
+        this.jornadaService  = jornadaService;
         this.metricasService = metricasService;
-        this.heatmapService = heatmapService;
+        this.heatmapService  = heatmapService;
         this.feedbackService = feedbackService;
-        this.segmentosService = segmentosService;
     }
 
     // ── Jornada ──────────────────────────────────────
-
     @GetMapping("/funil")
-    public Object getFunil() {
-        return jornadaService.getFunil();
-    }
+    public Object getFunil() { return jornadaService.getFunil(); }
 
     @GetMapping("/eventos")
-    public Object getEventos() {
-        return jornadaService.getEventos();
-    }
+    public Object getEventos() { return jornadaService.getEventos(); }
 
     @GetMapping("/abandono")
-    public Object getAbandono() {
-        return jornadaService.getAbandono();
-    }
+    public Object getAbandono() { return jornadaService.getAbandono(); }
 
     @GetMapping("/feedback")
-    public Object getFeedback() {
-        return jornadaService.getFeedback();
-    }
+    public Object getFeedback() { return jornadaService.getFeedback(); }
 
     // ── Métricas ─────────────────────────────────────
-
     @GetMapping("/metricas/horas")
-    public Object getHoras() {
-        return metricasService.getHoras();
-    }
+    public Object getHoras() { return metricasService.getHoras(); }
 
     @GetMapping("/metricas/conteudo")
-    public Object getConteudo() {
-        return metricasService.getConteudo();
-    }
+    public Object getConteudo() { return metricasService.getConteudo(); }
 
     @GetMapping("/metricas/retencao")
-    public Object getRetencao() {
-        return metricasService.getRetencao();
-    }
+    public Object getRetencao() { return metricasService.getRetencao(); }
 
     @GetMapping("/metricas/radar")
-    public Object getRadar() {
-        return metricasService.getRadar();
-    }
+    public Object getRadar() { return metricasService.getRadar(); }
 
     @GetMapping("/metricas/segmentos")
-    public Object getSegmentosMetricas() {
-        return metricasService.getSegmentos();
-    }
-
-    // ── Segmentos ────────────────────────────────────
-
-    @GetMapping("/segmentos")
-    public Object getDadosSegmentos() {
-        return segmentosService.getSegmentos();
-    }
+    public Object getSegmentos() { return metricasService.getSegmentos(); }
 
     // ── Heatmap ──────────────────────────────────────
-
     @GetMapping("/heatmap/navegacao")
-    public Object getBlocosNavegacao() {
-        return heatmapService.getBlocosNavegacao();
-    }
+    public Object getBlocosNavegacao() { return heatmapService.getBlocosNavegacao(); }
 
     @GetMapping("/heatmap/hero")
-    public Object getBlocosHero() {
-        return heatmapService.getBlocosHero();
-    }
+    public Object getBlocosHero() { return heatmapService.getBlocosHero(); }
 
     @GetMapping("/heatmap/acesso-rapido")
-    public Object getBlocosAcessoRapido() {
-        return heatmapService.getBlocosAcessoRapido();
-    }
+    public Object getBlocosAcessoRapido() { return heatmapService.getBlocosAcessoRapido(); }
 
     @GetMapping("/heatmap/elementos")
-    public Object getElementos() {
-        return heatmapService.getElementosMaisClicados();
-    }
+    public Object getElementos() { return heatmapService.getElementosMaisClicados(); }
 
     @GetMapping("/heatmap/insights")
-    public Object getInsights() {
-        return heatmapService.getInsights();
-    }
+    public Object getInsights() { return heatmapService.getInsights(); }
 
     // ── Feedback / NPS ───────────────────────────────
-
     @GetMapping("/nps")
-    public Object getNps() {
-        return feedbackService.getNps();
-    }
+    public Object getNps() { return feedbackService.getNps(); }
 
     // ── Regenerar Tudo ───────────────────────────────
-
     @PostMapping("/regenerar")
     public Object regenerar() {
-
         jornadaService.regenerar();
         metricasService.regenerar();
         heatmapService.regenerar();
         feedbackService.regenerar();
-        segmentosService.regenerar();
-
         return java.util.Map.of("status", "ok");
     }
 }

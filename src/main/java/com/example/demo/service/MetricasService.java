@@ -2,7 +2,6 @@ package com.example.demo.service;
 
 import com.example.demo.model.*;
 import com.example.demo.repository.*;
-import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,11 +33,6 @@ public class MetricasService {
         this.retencaoRepo = retencaoRepo;
         this.radarRepo    = radarRepo;
         this.segmentoRepo = segmentoRepo;
-    }
-
-    @PostConstruct
-    public void init() {
-        regenerar();
     }
 
     public void regenerar() {
@@ -80,11 +74,30 @@ public class MetricasService {
         });
     }
 
-    public List<EngajamentoHora> getHoras()         { return horasCache; }
-    public List<ConteudoEngajamento> getConteudo()  { return conteudoCache; }
-    public List<RetencaoSegmento> getRetencao()     { return retencaoCache; }
-    public List<RadarSegmento> getRadar()           { return radarCache; }
-    public List<Segmento> getSegmentos()            { return segmentosCache; }
+    public List<EngajamentoHora> getHoras() {
+        if (horasCache == null) regenerar();
+        return horasCache;
+    }
+
+    public List<ConteudoEngajamento> getConteudo() {
+        if (conteudoCache == null) regenerar();
+        return conteudoCache;
+    }
+
+    public List<RetencaoSegmento> getRetencao() {
+        if (retencaoCache == null) regenerar();
+        return retencaoCache;
+    }
+
+    public List<RadarSegmento> getRadar() {
+        if (radarCache == null) regenerar();
+        return radarCache;
+    }
+
+    public List<Segmento> getSegmentos() {
+        if (segmentosCache == null) regenerar();
+        return segmentosCache;
+    }
 
     private int clamp(int v) {
         return Math.max(0, Math.min(100, v));
