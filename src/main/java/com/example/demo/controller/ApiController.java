@@ -74,6 +74,17 @@ public class ApiController {
     @GetMapping("/nps")
     public Object getNps() { return feedbackService.getNps(); }
 
+    @GetMapping("/frustracao")
+    public Object getFrustracao() { return feedbackService.getFrustracao(); }
+
+    @GetMapping("/depoimentos")
+    public Object getDepoimentos() { return feedbackService.getDepoimentos(); }
+
+    @GetMapping("/sugestoes")
+    public Object getSugestoes() { return feedbackService.getSugestoes(); }
+
+    @GetMapping("/effort")
+    public Object getEffort() { return feedbackService.getEffort(); }
     // ── Regenerar Tudo ───────────────────────────────
     @PostMapping("/regenerar")
     public Object regenerar() {

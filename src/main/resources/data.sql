@@ -128,3 +128,49 @@ INSERT INTO nps_evolucao (id, mes, valor) VALUES
 (2, 'Fev', 61),
 (3, 'Mar', 67),
 (4, 'Abr', 72);
+-- ── Indicadores de Frustração ───────────────────
+INSERT INTO indicador_frustracao (id, evento, pagina, ocorrencias, tendencia, severidade) VALUES
+(1, 'Rage clicks',              'Cadastro avançado',    4820, '+18%', 'critical'),
+(2, 'Dead clicks',              'Página inicial',       3140, '+12%', 'warning'),
+(3, 'Abandono de formulário',   'Inscrição em cursos',  2780, '-6%',  'warning'),
+(4, 'Erro de carregamento',     'Portal de serviços',   1960, '-9%',  'critical'),
+(5, 'Navegação circular',       'Busca interna',        1420, '+7%',  'critical'),
+(6, 'Voltar imediatamente',     'Resultados de busca',   980, '+4%',  'warning');
+
+-- ── Sugestões Recorrentes ───────────────────────
+INSERT INTO sugestao (id, titulo, descricao) VALUES
+(1, 'Simplificar cadastro',     'Reduzir campos obrigatórios e explicar cada etapa.'),
+(2, 'Melhorar busca',           'Priorizar resultados mais relevantes e filtros rápidos.'),
+(3, 'Evitar erros no portal',   'Revisar carregamento das páginas de serviços.'),
+(4, 'Guiar novos usuários',     'Adicionar mensagens de orientação durante o fluxo.');
+
+-- ── Depoimentos (20 variados) ───────────────────
+INSERT INTO depoimento (id, texto, usuario, tipo) VALUES
+(1,  'A navegação ficou simples e consegui encontrar rapidamente o que precisava.', 'Ana Clara · MEI', 'positive'),
+(2,  'O formulário de cadastro é longo e algumas etapas não ficam claras.', 'Roberto · Empreendedor', 'negative'),
+(3,  'Gostei dos conteúdos recomendados. Pareciam bem alinhados ao meu perfil.', 'Marina · Estudante', 'positive'),
+(4,  'A busca interna poderia mostrar resultados mais objetivos.', 'Lucas · Usuário recorrente', 'warning'),
+(5,  'Plataforma muito intuitiva, consegui me cadastrar em poucos minutos.', 'Fernanda · MEI', 'positive'),
+(6,  'Tive dificuldade para encontrar o suporte quando precisei de ajuda.', 'Carlos · Empreendedor', 'negative'),
+(7,  'Os cursos são excelentes e bem didáticos, recomendo muito.', 'Juliana · Estudante', 'positive'),
+(8,  'A página de pagamento travou algumas vezes durante o processo.', 'Pedro · Consolidado', 'negative'),
+(9,  'Experiência razoável, mas poderia ter mais filtros na busca.', 'Beatriz · MEI', 'warning'),
+(10, 'Adorei a interface, muito moderna e fácil de usar.', 'Rafael · Empreendedor', 'positive'),
+(11, 'Demorou muito para carregar em alguns momentos.', 'Camila · Estudante', 'negative'),
+(12, 'O conteúdo é bom, mas a organização poderia melhorar.', 'Thiago · Usuário recorrente', 'warning'),
+(13, 'Consegui resolver meu problema rapidamente, muito eficiente.', 'Larissa · MEI', 'positive'),
+(14, 'Senti falta de um tutorial inicial para novos usuários.', 'Bruno · Iniciante', 'warning'),
+(15, 'As consultorias foram fundamentais para o meu negócio.', 'Patrícia · Consolidado', 'positive'),
+(16, 'Algumas funcionalidades não funcionaram como eu esperava.', 'Gustavo · Empreendedor', 'negative'),
+(17, 'Plataforma completa, encontrei tudo que precisava em um só lugar.', 'Amanda · MEI', 'positive'),
+(18, 'O processo de inscrição em cursos é confuso.', 'Felipe · Estudante', 'negative'),
+(19, 'Bom no geral, mas a versão mobile precisa de ajustes.', 'Mariana · Usuário recorrente', 'warning'),
+(20, 'Recomendo para todos os empreendedores iniciantes.', 'Diego · Iniciante', 'positive');
+
+-- ── Effort Score ────────────────────────────────
+INSERT INTO effort_score (id, label, percentual, cor, ordem) VALUES
+(1, 'Muito fácil',  22, 'green',       1),
+(2, 'Fácil',        32, 'light-green', 2),
+(3, 'Neutro',       36, 'yellow',      3),
+(4, 'Difícil',      22, 'orange',      4),
+(5, 'Muito difícil',12, 'red',         5);
