@@ -70,6 +70,19 @@ public class ApiController {
     @GetMapping("/heatmap/insights")
     public Object getInsights() { return heatmapService.getInsights(); }
 
+    @GetMapping("/heatmap/conteudo")
+    public Object getBlocosConteudo() { return heatmapService.getBlocosConteudo(); }
+
+    @GetMapping("/heatmap/banner")
+    public Object getBlocosBanner() { return heatmapService.getBlocosBanner(); }
+
+    @GetMapping("/heatmap/rodape")
+    public Object getBlocosRodape() { return heatmapService.getBlocosRodape(); }
+
+    @GetMapping("/heatmap/scroll")
+    public Object getScroll() { return heatmapService.getScroll(); }
+
+
     // ── Feedback / NPS ───────────────────────────────
     @GetMapping("/nps")
     public Object getNps() { return feedbackService.getNps(); }

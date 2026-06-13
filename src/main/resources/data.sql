@@ -81,36 +81,6 @@ INSERT INTO segmento (id, nome, cor, pct, engajamento, retorno, sessoes) VALUES
 (5, 'Iniciantes',        '#3b82f6',  5, 79, 58, 17100),
 (6, 'Outros',            '#9ca3af',  5, 48, 22,  7125);
 
--- ── Heatmap e Comportamento ─────────────────────
-INSERT INTO heatmap_bloco (id, secao, posicao, nome, intensidade) VALUES
-(1, 'Navegação', 1, 'Logo SEBRAE', 'bg-baixo'),
-(2, 'Navegação', 2, '', 'bg-baixo'),
-(3, 'Navegação', 3, '', 'bg-empty'),
-(4, 'Navegação', 4, 'Cursos', 'bg-alto'),
-(5, 'Navegação', 5, 'Ferramentas', 'bg-alto'),
-(6, 'Navegação', 6, 'Consultorias', 'bg-medio'),
-(7, 'Navegação', 7, 'SEBRAE-SP', 'bg-medio'),
-(8, 'Navegação', 8, '', 'bg-empty'),
-(9, 'Navegação', 9, 'Busca', 'bg-alto'),
-(10, 'Hero', 1, '', 'bg-empty'),
-(11, 'Hero', 2, '', 'bg-empty'),
-(12, 'Hero', 3, 'CTA Principal', 'bg-baixo'),
-(13, 'Hero', 4, '', 'bg-medio'),
-(14, 'Hero', 5, '', 'bg-medio'),
-(15, 'Hero', 6, 'Imagem Hero', 'bg-muito-baixo'),
-(16, 'Hero', 7, '', 'bg-muito-baixo'),
-(17, 'Hero', 8, '', 'bg-muito-baixo'),
-(18, 'Hero', 9, '', 'bg-empty'),
-(19, 'Acesso Rápido', 1, 'Portal MEI', 'bg-alto'),
-(20, 'Acesso Rápido', 2, '', 'bg-alto'),
-(21, 'Acesso Rápido', 3, 'Cursos Gratuitos', 'bg-alto'),
-(22, 'Acesso Rápido', 4, '', 'bg-empty'),
-(23, 'Acesso Rápido', 5, 'Capital de Giro', 'bg-baixo'),
-(24, 'Acesso Rápido', 6, '', 'bg-empty'),
-(25, 'Acesso Rápido', 7, 'Consultoria', 'bg-baixo'),
-(26, 'Acesso Rápido', 8, 'Eventos', 'bg-baixo'),
-(27, 'Acesso Rápido', 9, '', 'bg-baixo');
-
 INSERT INTO elemento_clicado (id, rank, nome, percentual) VALUES
 (1, 1, 'Cursos Gratuitos', 94),
 (2, 2, 'Cursos', 92),
@@ -174,3 +144,79 @@ INSERT INTO effort_score (id, label, percentual, cor, ordem) VALUES
 (3, 'Neutro',       36, 'yellow',      3),
 (4, 'Difícil',      22, 'orange',      4),
 (5, 'Muito difícil',12, 'red',         5);
+
+-- ── Heatmap Blocos (6 seções x 10 blocos) ───────
+INSERT INTO heatmap_bloco (id, secao, posicao, nome, intensidade) VALUES
+-- Navegação
+(1,  'Navegação', 1,  'Logo SEBRAE', 'bg-baixo'),
+(2,  'Navegação', 2,  '', 'bg-baixo'),
+(3,  'Navegação', 3,  '', 'bg-empty'),
+(4,  'Navegação', 4,  'Cursos', 'bg-alto'),
+(5,  'Navegação', 5,  'Ferramentas', 'bg-alto'),
+(6,  'Navegação', 6,  'Consultorias', 'bg-medio'),
+(7,  'Navegação', 7,  'SEBRAE-SP', 'bg-medio'),
+(8,  'Navegação', 8,  '', 'bg-empty'),
+(9,  'Navegação', 9,  'Busca', 'bg-medio'),
+(10, 'Navegação', 10, '', 'bg-alto'),
+-- Hero
+(11, 'Hero', 1,  '', 'bg-empty'),
+(12, 'Hero', 2,  '', 'bg-empty'),
+(13, 'Hero', 3,  '', 'bg-empty'),
+(14, 'Hero', 4,  'CTA Principal', 'bg-baixo'),
+(15, 'Hero', 5,  '', 'bg-medio'),
+(16, 'Hero', 6,  '', 'bg-medio'),
+(17, 'Hero', 7,  'Imagem Hero', 'bg-muito-baixo'),
+(18, 'Hero', 8,  '', 'bg-muito-baixo'),
+(19, 'Hero', 9,  '', 'bg-muito-baixo'),
+(20, 'Hero', 10, '', 'bg-muito-baixo'),
+-- Acesso Rápido
+(21, 'Acesso Rápido', 1,  'Portal MEI', 'bg-medio'),
+(22, 'Acesso Rápido', 2,  '', 'bg-alto'),
+(23, 'Acesso Rápido', 3,  'Cursos Gratuitos', 'bg-alto'),
+(24, 'Acesso Rápido', 4,  '', 'bg-alto'),
+(25, 'Acesso Rápido', 5,  'Capital de Giro', 'bg-baixo'),
+(26, 'Acesso Rápido', 6,  '', 'bg-medio'),
+(27, 'Acesso Rápido', 7,  'Consultoria', 'bg-baixo'),
+(28, 'Acesso Rápido', 8,  '', 'bg-baixo'),
+(29, 'Acesso Rápido', 9,  'Eventos', 'bg-baixo'),
+(30, 'Acesso Rápido', 10, '', 'bg-baixo'),
+-- Conteúdo
+(31, 'Conteúdo', 1,  'Notícia Destaque', 'bg-muito-baixo'),
+(32, 'Conteúdo', 2,  '', 'bg-baixo'),
+(33, 'Conteúdo', 3,  '', 'bg-baixo'),
+(34, 'Conteúdo', 4,  'Artigo', 'bg-muito-baixo'),
+(35, 'Conteúdo', 5,  '', 'bg-baixo'),
+(36, 'Conteúdo', 6,  'Artigo', 'bg-muito-baixo'),
+(37, 'Conteúdo', 7,  '', 'bg-muito-baixo'),
+(38, 'Conteúdo', 8,  'Notícia', 'bg-muito-baixo'),
+(39, 'Conteúdo', 9,  '', 'bg-muito-baixo'),
+(40, 'Conteúdo', 10, '', 'bg-muito-baixo'),
+-- Banner
+(41, 'Banner', 1,  'Banner SEBRAETEC', 'bg-muito-baixo'),
+(42, 'Banner', 2,  '', 'bg-muito-baixo'),
+(43, 'Banner', 3,  '', 'bg-muito-baixo'),
+(44, 'Banner', 4,  '', 'bg-muito-baixo'),
+(45, 'Banner', 5,  '', 'bg-baixo'),
+(46, 'Banner', 6,  '', 'bg-medio'),
+(47, 'Banner', 7,  '', 'bg-baixo'),
+(48, 'Banner', 8,  '', 'bg-muito-baixo'),
+(49, 'Banner', 9,  '', 'bg-muito-baixo'),
+(50, 'Banner', 10, '', 'bg-muito-baixo'),
+-- Rodapé
+(51, 'Rodapé', 1,  'Links Úteis', 'bg-muito-baixo'),
+(52, 'Rodapé', 2,  '', 'bg-muito-baixo'),
+(53, 'Rodapé', 3,  '', 'bg-muito-baixo'),
+(54, 'Rodapé', 4,  '', 'bg-muito-baixo'),
+(55, 'Rodapé', 5,  '', 'bg-muito-baixo'),
+(56, 'Rodapé', 6,  '', 'bg-muito-baixo'),
+(57, 'Rodapé', 7,  '', 'bg-muito-baixo'),
+(58, 'Rodapé', 8,  'Redes Sociais', 'bg-muito-baixo'),
+(59, 'Rodapé', 9,  '', 'bg-muito-baixo'),
+(60, 'Rodapé', 10, '', 'bg-muito-baixo');
+
+-- ── Scroll Profundidade (8 registros: 4 chart + 4 análise) ──
+INSERT INTO scroll_profundidade (id, faixa, titulo, percentual, cor, ordem) VALUES
+(1, '0-25%',   'Topo da página',        100, 'fill-blue',   1),
+(2, '25-50%',  'Conteúdo principal',     68, 'fill-green',  2),
+(3, '50-75%',  'Seção secundária',       41, 'fill-orange', 3),
+(4, '75-100%', 'Rodapé',                 22, 'fill-red',    4);

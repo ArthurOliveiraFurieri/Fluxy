@@ -433,5 +433,32 @@ body {
     align-items: center;
 }
 
-.scroll-callout-box span { color: #991B1B; font-size: 13px; font-weight: 500; line-height: 1.5; }
+.scroll-callout-box { font-size: 13px; font-weight: 500; line-height: 1.5; }
 .scroll-callout-box strong { font-weight: 800; color: #EF4444; }
+
+.scroll-callout-box.callout-critical {
+    background-color: #FFF1F2;
+    border-color: #FFE4E6;
+    color: #991B1B;
+}
+.scroll-callout-box.callout-critical strong {
+    color: #EF4444;
+}
+
+.scroll-callout-box.callout-warning {
+    background-color: #FFFBEB;
+    border-color: #FDE68A;
+    color: #92400E;
+}
+.scroll-callout-box.callout-warning strong {
+    color: #F59E0B;
+}
+
+.scroll-callout-box.callout-positive {
+    background-color: #ECFDF5;
+    border-color: #A7F3D0;
+    color: #065F46;
+}
+.scroll-callout-box.callout-positive strong {
+    color: #10B981;
+}
