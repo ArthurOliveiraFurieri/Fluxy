@@ -39,14 +39,31 @@ public class FeedbackService {
     public void regenerar() {
         npsCache = npsRepo.findAll();
         npsCache.forEach(n -> {
-            int variacao = random.nextInt(21) - 10;  // -10 a +10
+            int variacao = random.nextInt(21) - 10; 
             n.setValor(Math.max(0, Math.min(100, n.getValor() + variacao)));
         });
 
         frustracaoCache = frustracaoRepo.findAll();
         frustracaoCache.forEach(f -> {
-            int variacao = (int)(f.getOcorrencias() * (random.nextDouble() * 0.04 - 0.02));
-            f.setOcorrencias(Math.max(0, f.getOcorrencias() + variacao));
+            int valorAntigo = f.getOcorrencias();
+
+            int variacaoPercent = random.nextInt(31) - 15; 
+            int novoValor = (int)(valorAntigo * (1 + variacaoPercent / 100.0));
+            f.setOcorrencias(Math.max(0, novoValor));
+
+            String sinal = variacaoPercent >= 0 ? "+" : "";
+            f.setTendencia(sinal + variacaoPercent + "%");
+            
+            boolean ocorrenciasAltas = f.getOcorrencias() > 3000;
+            boolean piorando         = variacaoPercent > 0;
+
+            if (ocorrenciasAltas && piorando) {
+                f.setSeveridade("critical");
+            } else if (ocorrenciasAltas || piorando) {
+                f.setSeveridade("warning");
+            } else {
+                f.setSeveridade("controlled");
+            }
         });
 
         List<Depoimento> todosDepoimentos = depoimentoRepo.findAll();

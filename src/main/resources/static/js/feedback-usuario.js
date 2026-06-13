@@ -128,8 +128,17 @@ function carregarFrustracao() {
 
             tbody.innerHTML = dados.map(f => {
                 const trendClass = f.tendencia.startsWith('+') ? 'trend-down' : 'trend-up';
-                const sevClass   = f.severidade === 'critical' ? 'critical' : 'warning';
-                const sevLabel   = f.severidade === 'critical' ? 'Crítico' : 'Atenção';
+                let sevClass, sevLabel;
+                if (f.severidade === 'critical') {
+                    sevClass = 'critical';
+                    sevLabel = 'Crítico';
+                } else if (f.severidade === 'warning') {
+                    sevClass = 'warning';
+                    sevLabel = 'Atenção';
+                } else {
+                    sevClass = 'controlled';
+                    sevLabel = 'Controlado';
+                }
 
                 return `
                     <tr>
