@@ -220,3 +220,55 @@ INSERT INTO scroll_profundidade (id, faixa, titulo, percentual, cor, ordem) VALU
 (2, '25-50%',  'Conteúdo principal',     68, 'fill-green',  2),
 (3, '50-75%',  'Seção secundária',       41, 'fill-orange', 3),
 (4, '75-100%', 'Rodapé',                 22, 'fill-red',    4);
+
+-- ── Insights Automáticos ────────────────────────
+INSERT INTO insight_automatico (id, tipo, badge, badge_cor, titulo, descricao, link, ordem) VALUES
+(1, 'critical', '⚠ CRÍTICO  -12.3%', 'red', 'Queda crítica no engajamento de cursos', 'Taxa de engajamento em Cursos Online caiu 12,3% nos últimos 3 dias. Taxa de abandono subiu de 34% para 46%. Pico de rage clicks detectado na página de inscrição.', 'Ver heatmap →', 1),
+(2, 'positive', '✓ POSITIVO  +23% retorno', 'green', 'Segmento MEI com alta retenção', 'Usuários MEI que acessam "Gestão Financeira" retornam 23% mais que a média do segmento. Padrão consistente nas últimas 2 semanas.', 'Explorar segmento →', 2),
+(3, 'info', 'ℹ INSIGHT  +18% conversão', 'blue', 'Padrão de horário de alto valor', 'Picos de acesso às 10h–11h e 15h–16h apresentam +18% de conversão. Oportunidade para notificações segmentadas e conteúdo programado.', 'Ver relatório →', 3);
+
+-- ── KPIs Principais ─────────────────────────────
+INSERT INTO kpi_principal (id, label, valor, unidade, descricao, tendencia, trend_direction, icone_bg, icone_cor, icone_tipo, ordem) VALUES
+(1, 'Taxa de Engajamento',     68.4, '%',   'Usuários que interagiram ativamente', 8.2,  'up',   '#eff6ff', '#3b82f6', 'eye',    1),
+(2, 'Score de Esforço (CES)',  2.8,  'pts', 'Escala 1–5 · quanto menor, melhor',  -12.5, 'down', '#faf5ff', '#7c3aed', 'target', 2),
+(3, 'Taxa de Retorno',         42.1, '%',   'Usuários que retornaram em 30 dias',  9.6,  'up',   '#f0fdf4', '#10b981', 'refresh',3),
+(4, 'Tempo Médio de Sessão',   4.3,  'min', 'Média por sessão no período',         22.2, 'up',   '#fffbeb', '#f59e0b', 'clock',  4),
+(5, 'Sessões Totais',          142.5,'k',   'Total de sessões no período',         11.1, 'up',   '#f0f9ff', '#0ea5e9', 'users',  5),
+(6, 'Taxa de Conversão',       9.5,  '%',   'Cadastros / inscrições realizados',   15.9, 'up',   '#fdf4ff', '#a855f7', 'chart',  6);
+
+-- ── Fontes de Tráfego ───────────────────────────
+INSERT INTO fonte_trafego (id, label, percentual, cor, ordem) VALUES
+(1, 'Orgânico', 45, '#10b981', 1),
+(2, 'Direto',   23, '#3b82f6', 2),
+(3, 'Social',   18, '#7c3aed', 3),
+(4, 'E-mail',    9, '#f59e0b', 4),
+(5, 'Pago',      5, '#ef4444', 5);
+
+-- ── Evolução Temporal (26 dias) ─────────────────
+INSERT INTO evolucao_temporal (id, dia, engajamento, retorno, volume, ordem) VALUES
+(1,  '01/04', 65, 38, 4200, 1),
+(2,  '',      72, 42, 3800, 2),
+(3,  '',      60, 36, 4500, 3),
+(4,  '',      68, 40, 3200, 4),
+(5,  '',      63, 37, 1800, 5),
+(6,  '06/04', 70, 44, 2400, 6),
+(7,  '',      67, 39, 4100, 7),
+(8,  '',      74, 43, 3600, 8),
+(9,  '',      61, 35, 4800, 9),
+(10, '',      66, 41, 3000, 10),
+(11, '11/04', 64, 38, 1900, 11),
+(12, '',      71, 45, 2600, 12),
+(13, '',      68, 40, 4300, 13),
+(14, '',      75, 42, 3700, 14),
+(15, '',      62, 36, 4600, 15),
+(16, '16/04', 69, 43, 3100, 16),
+(17, '',      65, 39, 1700, 17),
+(18, '',      73, 44, 2500, 18),
+(19, '',      60, 37, 4000, 19),
+(20, '',      68, 40, 3500, 20),
+(21, '21/04', 66, 38, 4700, 21),
+(22, '',      72, 43, 3200, 22),
+(23, '',      64, 36, 1800, 23),
+(24, '',      70, 41, 2400, 24),
+(25, '',      67, 39, 4400, 25),
+(26, '26/04', 76, 45, 4900, 26);

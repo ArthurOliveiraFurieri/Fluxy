@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
+
 import com.example.demo.service.JornadaService;
 import com.example.demo.service.MetricasService;
+import com.example.demo.service.VisaoGeralService;
 import com.example.demo.service.HeatmapService;
 import com.example.demo.service.FeedbackService;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +16,18 @@ public class ApiController {
     private final MetricasService metricasService;
     private final HeatmapService heatmapService;
     private final FeedbackService feedbackService;
+    private final VisaoGeralService visaoGeralService;
 
     public ApiController(JornadaService jornadaService,
-                         MetricasService metricasService,
-                         HeatmapService heatmapService,
-                         FeedbackService feedbackService) {
+                    MetricasService metricasService,
+                    HeatmapService heatmapService,
+                    FeedbackService feedbackService,
+                    VisaoGeralService visaoGeralService) {
         this.jornadaService  = jornadaService;
         this.metricasService = metricasService;
         this.heatmapService  = heatmapService;
         this.feedbackService = feedbackService;
+        this.visaoGeralService = visaoGeralService;
     }
 
     // ── Jornada ──────────────────────────────────────
@@ -98,6 +103,24 @@ public class ApiController {
 
     @GetMapping("/effort")
     public Object getEffort() { return feedbackService.getEffort(); }
+
+    // ── Visão Geral ──────────────────────────────────
+    @GetMapping("/visao/insights")
+    public Object getVisaoInsights() { return visaoGeralService.getInsights(); }
+
+    @GetMapping("/visao/kpis")
+    public Object getVisaoKpis() { return visaoGeralService.getKpis(); }
+
+    @GetMapping("/visao/evolucao")
+    public Object getVisaoEvolucao() { return visaoGeralService.getEvolucao(); }
+
+    @GetMapping("/visao/fontes")
+    public Object getVisaoFontes() { return visaoGeralService.getFontes(); }
+
+    @GetMapping("/visao/funil")
+    public Object getVisaoFunil() { return visaoGeralService.getFunil(); }
+
+
     // ── Regenerar Tudo ───────────────────────────────
     @PostMapping("/regenerar")
     public Object regenerar() {
@@ -105,6 +128,7 @@ public class ApiController {
         metricasService.regenerar();
         heatmapService.regenerar();
         feedbackService.regenerar();
+        visaoGeralService.regenerar();
         return java.util.Map.of("status", "ok");
     }
 }
