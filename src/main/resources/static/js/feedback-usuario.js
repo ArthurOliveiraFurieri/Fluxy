@@ -29,28 +29,31 @@ function carregarNps() {
         .catch(err => console.error('Erro ao carregar NPS:', err));
 }
 
-/* ── Gauge: usa o último mês como NPS atual ─────── */
 function atualizarGauge(dados) {
     if (!dados.length) return;
 
     const npsAtual = dados[dados.length - 1].valor;
 
-    // Número grande
+    const cor = corDoGauge(npsAtual);
+
     const valueEl = document.querySelector('.nps-gauge__value');
-    if (valueEl) valueEl.textContent = npsAtual;
+    if (valueEl) {
+        valueEl.textContent = npsAtual;
+        valueEl.style.color = cor;
+    }
 
-    // Rótulo conforme faixa
     const labelEl = document.querySelector('.nps-gauge__label');
-    if (labelEl) labelEl.textContent = classificarNps(npsAtual);
+    if (labelEl) {
+        labelEl.textContent = classificarNps(npsAtual);
+        labelEl.style.color = cor;
+    }
 
-    // Ponteiro: NPS 0-100 → ângulo -90° a +90°
     const needle = document.querySelector('.nps-gauge__needle');
     if (needle) {
         const angulo = (npsAtual / 100) * 180 - 90;
         needle.style.transform = `rotate(${angulo}deg)`;
     }
 
-    // Distribuição proporcional (promotores/neutros/detratores)
     const promotores = npsAtual;
     const detratores = Math.max(0, Math.round((100 - npsAtual) * 0.3));
     const neutros    = 100 - promotores - detratores;
@@ -69,6 +72,28 @@ function classificarNps(v) {
     if (v >= 30) return 'Razoável';
     if (v >= 0)  return 'Precisa melhorar';
     return 'Crítico';
+}
+
+/* ── Cor exata da faixa apontada pelo ponteiro ──── */
+function corDoGauge(v) {
+    v = Math.max(0, Math.min(100, v));
+    const vermelho = [239, 68, 68];    
+    const laranja  = [245, 158, 11];   
+    const verde    = [16, 185, 129];  
+
+    const c = v <= 50
+        ? lerpCor(vermelho, laranja, v / 50)
+        : lerpCor(laranja, verde, (v - 50) / 50);
+
+    return `rgb(${c[0]}, ${c[1]}, ${c[2]})`;
+}
+
+function lerpCor(a, b, t) {
+    return [
+        Math.round(a[0] + (b[0] - a[0]) * t),
+        Math.round(a[1] + (b[1] - a[1]) * t),
+        Math.round(a[2] + (b[2] - a[2]) * t),
+    ];
 }
 
 /* ── Gráfico de evolução ────────────────────────── */
